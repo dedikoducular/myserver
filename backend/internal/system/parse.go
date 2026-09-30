@@ -168,7 +168,19 @@ func parseMemInfo(data []byte) (Memory, bool) {
 	if avail > total {
 		avail = total
 	}
-	m := Memory{Total: total, Available: avail, Used: total - avail, SwapTotal: vals["SwapTotal"]}
+	// Used follows htop and free(1): everything the kernel can drop at once
+	// (buffers, page cache, reclaimable slab) counts as free, while shared
+	// memory (tmpfs) stays used. Available is the kernel's own, more
+	// conservative estimate and drives the health check.
+	cache := vals["Cached"] + vals["SReclaimable"]
+	if sh := vals["Shmem"]; sh <= cache {
+		cache -= sh
+	}
+	free := vals["MemFree"] + vals["Buffers"] + cache
+	if free > total {
+		free = total
+	}
+	m := Memory{Total: total, Available: avail, Used: total - free, SwapTotal: vals["SwapTotal"]}
 	m.Percent = float64(m.Used) / float64(total) * 100
 	if free := vals["SwapFree"]; free <= m.SwapTotal {
 		m.SwapUsed = m.SwapTotal - free

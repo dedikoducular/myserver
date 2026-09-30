@@ -123,10 +123,13 @@ func (m *Module) Health(ctx context.Context) []module.HealthCheck {
 	}
 
 	if mem, ok := readMemory(); ok {
+		// Memory pressure: how close the system is to running out, by the
+		// kernel's own availability estimate (not the htop-style "used").
+		pressure := 100 - float64(mem.Available)/float64(mem.Total)*100
 		checks = append(checks, module.HealthCheck{
 			ID: "system.memory", Name: "Bellek",
-			Status:  level(mem.Percent, memWarnPercent, memCritPercent),
-			Message: fmt.Sprintf("Bellek kullanımı %%%.0f.", mem.Percent),
+			Status:  level(pressure, memWarnPercent, memCritPercent),
+			Message: fmt.Sprintf("Bellek kullanımı %%%.0f; kullanılabilir %%%.0f.", mem.Percent, 100-pressure),
 		})
 	}
 

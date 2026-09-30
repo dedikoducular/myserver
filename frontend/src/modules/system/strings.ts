@@ -15,6 +15,7 @@ export const t = messages({
     temperature: 'Sıcaklık',
     loadAverage: 'Yük ortalaması: {value}',
     usedOfTotal: '{used} / {total}',
+    memAvailable: '{used} / {total} · {available} kullanılabilir',
     cpuTemp: 'CPU: {value}',
     nvmeTemp: 'NVMe: {value}',
     noSensor: 'Sensör bulunamadı',

@@ -191,7 +191,7 @@ export function MetricCards() {
         tone="purple"
         title={t('ram')}
         value={formatPercent(memory.percent)}
-        secondary={t('usedOfTotal', { used: formatBytes(memory.used), total: formatBytes(memory.total) })}
+        secondary={t('memAvailable', { used: formatBytes(memory.used), total: formatBytes(memory.total), available: formatBytes(memory.available) })}
         series={history.map((p) => p.memory)}
         max={100}
       />

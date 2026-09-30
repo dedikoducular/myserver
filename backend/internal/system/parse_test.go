@@ -125,10 +125,12 @@ func TestParseMemInfoCaptured(t *testing.T) {
 		t.Fatal("not parsed")
 	}
 	const kb = 1024
-	if m.Total != 8001612*kb || m.Available != 7196012*kb || m.Used != (8001612-7196012)*kb {
+	// Used as htop computes it: total - free - buffers - (cached + reclaimable slab - shmem).
+	const used = 8001612 - 5832900 - 240484 - (1261932 - 26888)
+	if m.Total != 8001612*kb || m.Available != 7196012*kb || m.Used != used*kb {
 		t.Errorf("unexpected sizes: %+v", m)
 	}
-	if want := float64(8001612-7196012) / 8001612 * 100; math.Abs(m.Percent-want) > 1e-9 {
+	if want := float64(used) / 8001612 * 100; math.Abs(m.Percent-want) > 1e-9 {
 		t.Errorf("percent = %v, want %v", m.Percent, want)
 	}
 	if m.SwapTotal != 2097152*kb || m.SwapUsed != 0 {
@@ -145,10 +147,16 @@ func TestParseMemInfoVariants(t *testing.T) {
 	if m.SwapUsed != 300*1024 {
 		t.Errorf("swap used = %d", m.SwapUsed)
 	}
-	// Available above total must not underflow Used.
-	m, ok = parseMemInfo([]byte("MemTotal: 1000 kB\nMemAvailable: 2000 kB\n"))
-	if !ok || m.Used != 0 || m.Percent != 0 {
+	// Available above total is clamped; free memory above total must not
+	// underflow Used.
+	m, ok = parseMemInfo([]byte("MemTotal: 1000 kB\nMemFree: 2000 kB\nMemAvailable: 2000 kB\n"))
+	if !ok || m.Available != 1000*1024 || m.Used != 0 || m.Percent != 0 {
 		t.Errorf("clamp: %+v ok=%v", m, ok)
+	}
+	// Shared memory (tmpfs) is part of the page cache but stays used.
+	m, _ = parseMemInfo([]byte("MemTotal: 1000 kB\nMemFree: 500 kB\nBuffers: 0 kB\nCached: 300 kB\nShmem: 100 kB\nSReclaimable: 50 kB\nMemAvailable: 700 kB\n"))
+	if m.Used != 250*1024 {
+		t.Errorf("shmem: used = %d, want %d", m.Used, 250*1024)
 	}
 	// SwapFree above SwapTotal must not underflow.
 	m, _ = parseMemInfo([]byte("MemTotal: 1000 kB\nMemAvailable: 500 kB\nSwapTotal: 10 kB\nSwapFree: 20 kB\n"))
