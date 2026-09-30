@@ -55,6 +55,7 @@ function detail(over: Partial<AppDetail> = {}): AppDetail {
     services: [{ name: 'app', image: 'example/tek:1.0', depends_on: [] }],
     volumes: [{ service: 'app', type: 'volume', source: 'myserver-tek-config', target: '/config', label: '', read_only: false }],
     installed_app: null,
+    custom: false,
     ...over,
   }
 }
@@ -91,6 +92,7 @@ function installedApp(over: Partial<InstalledApp> = {}): InstalledApp {
     web_ui: null,
     ports: [],
     bind_address: 'all',
+    custom: false,
     ...over,
   }
 }

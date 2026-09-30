@@ -18,7 +18,9 @@ type InvalidManifest struct {
 	Error string `json:"error"`
 }
 
-// Catalog is the set of manifests loaded from the manifest directory.
+// Catalog is the set of manifests loaded from the manifest directory, plus
+// the custom applications the administrator added from compose files
+// (stored in the database, see custom.go).
 type Catalog struct {
 	dir string
 
@@ -28,11 +30,18 @@ type Catalog struct {
 	invalid  []InvalidManifest
 	loadedAt int64
 	loadErr  string
+
+	custom        map[string]*Manifest
+	customInvalid []InvalidManifest
 }
 
 func NewCatalog(dir string) *Catalog {
-	return &Catalog{dir: dir, apps: map[string]*Manifest{}}
+	return &Catalog{dir: dir, apps: map[string]*Manifest{}, custom: map[string]*Manifest{}}
 }
+
+// errReserved is reported for a shipped manifest that uses the slug prefix
+// or the category of custom applications.
+var errReserved = fmt.Errorf("%q öneki ve %q kategorisi panelden eklenen özel uygulamalara ayrılmıştır", CustomPrefix, CustomCategory)
 
 // Reload reads every *.yaml / *.yml file of the manifest directory. A broken
 // manifest is skipped and reported; it never prevents the others loading.
@@ -59,6 +68,9 @@ func (c *Catalog) Reload() {
 	sort.Strings(names)
 	for _, n := range names {
 		m, err := loadFile(filepath.Join(c.dir, n))
+		if err == nil && (IsCustomSlug(m.Slug) || m.Category == CustomCategory) {
+			err = errReserved
+		}
 		if err == nil {
 			if prev, dup := files[m.Slug]; dup {
 				err = fmt.Errorf("slug %q zaten %s dosyasında tanımlı", m.Slug, prev)
@@ -108,26 +120,81 @@ func loadFile(path string) (*Manifest, error) {
 func (c *Catalog) Get(slug string) *Manifest {
 	c.mu.RLock()
 	defer c.mu.RUnlock()
-	return c.apps[slug]
+	if m := c.apps[slug]; m != nil {
+		return m
+	}
+	return c.custom[slug]
 }
 
-// List returns the manifests ordered by name.
+// List returns the manifests, shipped and custom, ordered by name.
 func (c *Catalog) List() []*Manifest {
 	c.mu.RLock()
 	defer c.mu.RUnlock()
-	out := make([]*Manifest, 0, len(c.order))
+	out := make([]*Manifest, 0, len(c.order)+len(c.custom))
 	for _, slug := range c.order {
 		out = append(out, c.apps[slug])
 	}
+	if len(c.custom) == 0 {
+		return out
+	}
+	for _, m := range c.custom {
+		out = append(out, m)
+	}
+	sort.SliceStable(out, func(i, j int) bool {
+		a, b := strings.ToLower(out[i].Name), strings.ToLower(out[j].Name)
+		if a != b {
+			return a < b
+		}
+		return out[i].Slug < out[j].Slug
+	})
 	return out
 }
 
-// Invalid returns the manifests skipped by the last reload.
+// Invalid returns the manifests skipped by the last reload and the stored
+// custom definitions that could not be loaded.
 func (c *Catalog) Invalid() []InvalidManifest {
 	c.mu.RLock()
 	defer c.mu.RUnlock()
-	return append([]InvalidManifest{}, c.invalid...)
+	out := append([]InvalidManifest{}, c.invalid...)
+	return append(out, c.customInvalid...)
 }
+
+// SetCustom replaces the custom applications.
+func (c *Catalog) SetCustom(list []*Manifest, invalid []InvalidManifest) {
+	custom := make(map[string]*Manifest, len(list))
+	for _, m := range list {
+		custom[m.Slug] = m
+	}
+	c.mu.Lock()
+	c.custom, c.customInvalid = custom, append([]InvalidManifest{}, invalid...)
+	c.mu.Unlock()
+}
+
+// PutCustom adds one custom application.
+func (c *Catalog) PutCustom(m *Manifest) {
+	c.mu.Lock()
+	c.custom[m.Slug] = m
+	c.mu.Unlock()
+}
+
+// RemoveCustom removes a custom application, and the report of its stored
+// definition being invalid, if any.
+func (c *Catalog) RemoveCustom(slug string) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	delete(c.custom, slug)
+	kept := c.customInvalid[:0]
+	for _, i := range c.customInvalid {
+		if i.File != customInvalidName(slug) {
+			kept = append(kept, i)
+		}
+	}
+	c.customInvalid = kept
+}
+
+// customInvalidName labels a stored custom definition in the list of
+// invalid manifests.
+func customInvalidName(slug string) string { return "Özel uygulama: " + slug }
 
 // Status returns the time of the last reload and its directory error, if any.
 func (c *Catalog) Status() (loadedAt int64, loadErr string) {

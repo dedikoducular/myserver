@@ -182,7 +182,7 @@ func ContainerName(slug, service string, single bool) string {
 // folder, even when an administrator has widened the allowed roots.
 var forbiddenBind = []string{
 	"/etc", "/proc", "/sys", "/dev", "/boot", "/run", "/var/run", "/var/lib/docker",
-	"/var/lib/myserver", "/usr", "/bin", "/sbin", "/lib", "/lib64", "/root",
+	"/var/lib/myserver", "/var/lib/myserver-updates", "/usr", "/bin", "/sbin", "/lib", "/lib64", "/root",
 }
 
 func within(p, root string) bool {
@@ -326,6 +326,9 @@ func Resolve(m *Manifest, in Inputs, prev *Inputs, roots []string) (*Config, *In
 	bind := in.BindAddress
 	if bind == "" {
 		bind = prev.BindAddress
+	}
+	if bind == "" {
+		bind = m.BindAddress
 	}
 	if bind == "" {
 		bind = BindAll

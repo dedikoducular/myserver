@@ -22,10 +22,17 @@ is skipped, logged, and listed to administrators as invalid; the other applicati
 | `website` | no | `http(s)://` URL. |
 | `notes` | no | Install notes shown before installing. |
 | `architectures` | no | CPU architectures the images support, as Go names: `amd64`, `arm64`, `arm`, `386`, `riscv64`, `ppc64le`, `s390x`. When the server's architecture is not listed the app is shown as **Desteklenmiyor** and cannot be installed. Omit it to declare nothing (no restriction). For a multi-service app list only architectures that every image supports. |
+| `bind_address` | no | Default of the install dialog's access choice: `all` (default, ports published on every interface) or `loopback` (127.0.0.1 only). The user can change it. |
 | `docker`, `env`, `ports`, `volumes`, `options` | | Single-service form, see below. |
 | `services` | | Multi-service form: a list of services. Cannot be combined with the single-service fields. |
 
 A single-service manifest is treated as one service named `app`.
+
+The slug prefix `custom-` and the category `custom` ("Özel") are reserved for applications an
+administrator adds from a docker-compose file in the panel; a file here that uses them is
+refused. Those applications are converted into this same manifest format and stored in the
+panel's database, not in this directory. See [docs/custom-apps.md](../../docs/custom-apps.md)
+(Turkish) for what a compose file may contain.
 
 ## Service (`docker:` block, or one entry of `services:`)
 

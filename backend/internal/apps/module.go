@@ -57,6 +57,9 @@ func New(deps module.Deps, _ *settings.API) (module.Module, error) {
 		baseCtx: context.Background(),
 	}
 	m.catalog.Reload()
+	lctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	m.loadCustom(lctx)
+	cancel()
 	return m, nil
 }
 
@@ -73,6 +76,9 @@ func (m *Module) Register(api, _ *httpx.Router) {
 
 	a := api.Group("/apps", auth.RequireAdmin)
 	a.Post("/reload", m.handleReload)
+	a.Post("/custom/preview", m.handleCustomPreview)
+	a.Post("/custom", m.handleCustomCreate)
+	a.Delete("/custom/{slug}", m.handleCustomDelete)
 	a.Post("/catalog/{slug}/install", m.handleInstall)
 	a.Post("/installed/{slug}/start", m.handleLifecycle("start"))
 	a.Post("/installed/{slug}/stop", m.handleLifecycle("stop"))
@@ -330,6 +336,12 @@ func (m *Module) startInstall(actor audit.Actor, cli *client.Client, cfg *Config
 	release, err := m.lock(cfg.Slug, JobInstall)
 	if err != nil {
 		return nil, err
+	}
+	// A custom definition may have been deleted while the request was
+	// prepared; the delete holds the same lock.
+	if IsCustomSlug(cfg.Slug) && m.catalog.Get(cfg.Slug) == nil {
+		release()
+		return nil, httpx.NotFound("Bu özel uygulamanın tanımı silinmiş.")
 	}
 	job, err := m.jobs.create(cfg.Slug, cfg.Name, JobInstall, actor)
 	if err != nil {

@@ -153,7 +153,7 @@ export function InstalledCard({
           {exposure}
         </div>
         <div className="hidden shrink-0 sm:block">
-          <Badge>{app.category_label}</Badge>
+          {app.custom ? <CustomBadge custom /> : <Badge>{app.category_label}</Badge>}
         </div>
         <div className="shrink-0">
           <AppStatus app={app} busy={busy} />
@@ -166,7 +166,10 @@ export function InstalledCard({
     <Card padded={false} className="flex gap-3 p-3.5">
       <AppIcon icon={app.icon} />
       <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-        {title}
+        <div className="flex min-w-0 items-center gap-1.5">
+          <div className="min-w-0">{title}</div>
+          <CustomBadge custom={app.custom} />
+        </div>
         <p className="truncate text-xs text-muted">{app.description}</p>
         {exposure}
         <div className="mt-1.5 flex items-center justify-between gap-2">
@@ -178,17 +181,31 @@ export function InstalledCard({
   )
 }
 
+function CustomBadge({ custom }: { custom: boolean }) {
+  return custom ? <Badge tone="purple">{t('customBadge')}</Badge> : null
+}
+
 export function CatalogCard({
   app,
   view,
   isAdmin,
   onSelect,
+  onDeleteCustom,
 }: {
   app: CatalogApp
   view: ViewMode
   isAdmin: boolean
   onSelect: (app: CatalogApp) => void
+  /** Deletes the definition of a custom application that is not installed. */
+  onDeleteCustom?: (app: CatalogApp) => void
 }) {
+  const menu = app.custom && isAdmin && !app.installed && onDeleteCustom && (
+    <Menu
+      label={t('customMenu', { name: app.name })}
+      items={[{ label: t('customDelete'), icon: Trash2, danger: true, disabled: Boolean(app.operation), onSelect: () => onDeleteCustom(app) }]}
+      trigger={<MoreHorizontal className="size-5" aria-hidden />}
+    />
+  )
   let action: ReactNode
   if (app.operation === 'install') {
     action = (
@@ -228,9 +245,10 @@ export function CatalogCard({
           <p className="truncate text-xs text-muted">{app.description}</p>
         </div>
         <div className="hidden shrink-0 sm:block">
-          <Badge>{app.category_label}</Badge>
+          {app.custom ? <CustomBadge custom /> : <Badge>{app.category_label}</Badge>}
         </div>
         <div className="shrink-0">{action}</div>
+        {menu}
       </Card>
     )
   }
@@ -238,13 +256,14 @@ export function CatalogCard({
     <Card padded={false} className="flex gap-3 p-3.5">
       <AppIcon icon={app.icon} />
       <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-        <p className="flex items-center gap-1.5 text-sm font-semibold text-fg">
+        <div className="flex items-center gap-1.5 text-sm font-semibold text-fg">
           <span className="truncate">{app.name}</span>
           {risk}
-        </p>
+          {menu && <div className="-my-1 ml-auto shrink-0">{menu}</div>}
+        </div>
         <p className="truncate text-xs text-muted">{app.description}</p>
         <div className="mt-1.5 flex items-center justify-between gap-2">
-          <Badge>{app.category_label}</Badge>
+          {app.custom ? <CustomBadge custom /> : <Badge>{app.category_label}</Badge>}
           {action}
         </div>
       </div>

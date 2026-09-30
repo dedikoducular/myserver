@@ -1,10 +1,11 @@
 import { useMemo, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
-import { LayoutGrid, PackageOpen, Plus, RefreshCw, Search, Store } from 'lucide-react'
+import { FilePlus2, LayoutGrid, PackageOpen, Plus, RefreshCw, Search, Store } from 'lucide-react'
 import {
   Alert,
   Button,
   Card,
+  ConfirmDialog,
   EmptyState,
   ErrorState,
   Input,
@@ -19,6 +20,7 @@ import { api } from '@/services/api'
 import { useAuth } from '@/stores/auth'
 import { toast } from '@/stores/ui'
 import { AppDialog } from './AppDialog'
+import { CustomAppDialog } from './CustomAppDialog'
 import { InstalledApps } from './InstalledApps'
 import { JobDialog } from './JobProgress'
 import { CatalogCard, ViewToggle, gridClass } from './parts'
@@ -116,6 +118,8 @@ export default function AppsPage() {
   const [search, setSearch] = useState('')
   const [installSlug, setInstallSlug] = useState<string | null>(null)
   const [job, setJob] = useState<Pick<Job, 'id' | 'name' | 'kind'> | null>(null)
+  const [addingCustom, setAddingCustom] = useState(false)
+  const [deleting, setDeleting] = useState<CatalogApp | null>(null)
 
   const catalog = useCatalog(true)
   const reloadCatalog = catalog.reload
@@ -134,6 +138,14 @@ export default function AppsPage() {
     },
     onError: (message) => toast.error(message),
   })
+
+  const deleteCustom = async () => {
+    if (!deleting) return
+    await api.del(`/apps/custom/${deleting.slug}`)
+    toast.success(t('customDeleted', { name: deleting.name }))
+    setDeleting(null)
+    refresh()
+  }
 
   const setTab = (next: PageTab) => {
     setCategory('all')
@@ -201,7 +213,7 @@ export default function AppsPage() {
       content = (
         <div className={gridClass(view)}>
           {storeApps.map((app) => (
-            <CatalogCard key={app.slug} app={app} view={view} isAdmin={isAdmin} onSelect={selectCatalogApp} />
+            <CatalogCard key={app.slug} app={app} view={view} isAdmin={isAdmin} onSelect={selectCatalogApp} onDeleteCustom={setDeleting} />
           ))}
         </div>
       )
@@ -226,6 +238,11 @@ export default function AppsPage() {
             {isAdmin && tab === 'installed' && (
               <Button variant="primary" icon={Plus} onClick={() => setTab('store')}>
                 {t('installApp')}
+              </Button>
+            )}
+            {isAdmin && tab === 'store' && (
+              <Button variant="primary" icon={FilePlus2} onClick={() => setAddingCustom(true)}>
+                {t('customAdd')}
               </Button>
             )}
           </>
@@ -273,6 +290,27 @@ export default function AppsPage() {
 
       <AppDialog slug={installSlug} mode="install" onClose={() => setInstallSlug(null)} onChanged={refresh} />
       <JobDialog job={job} onClose={() => setJob(null)} onFinished={refresh} />
+      {isAdmin && (
+        <CustomAppDialog
+          open={addingCustom}
+          onClose={() => setAddingCustom(false)}
+          onSaved={(app) => {
+            setAddingCustom(false)
+            refresh()
+            // Installing goes through the ordinary install dialog.
+            setInstallSlug(app.slug)
+          }}
+        />
+      )}
+      <ConfirmDialog
+        open={deleting !== null}
+        onClose={() => setDeleting(null)}
+        onConfirm={deleteCustom}
+        title={deleting ? t('customDeleteTitle', { name: deleting.name }) : ''}
+        message={t('customDeleteMessage')}
+        confirmLabel={t('customDelete')}
+        danger
+      />
     </div>
   )
 }

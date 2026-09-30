@@ -64,6 +64,8 @@ type installedView struct {
 	Ports             []portView     `json:"ports"`
 	// BindAddress is "all" or "loopback".
 	BindAddress string `json:"bind_address"`
+	// Custom: added by an administrator from a compose file.
+	Custom bool `json:"custom"`
 }
 
 type catalogView struct {
@@ -87,6 +89,8 @@ type catalogView struct {
 	Installed         bool   `json:"installed"`
 	Operation         string `json:"operation"`
 	JobID             string `json:"job_id"`
+	// Custom: added by an administrator from a compose file.
+	Custom bool `json:"custom"`
 }
 
 type portField struct {
@@ -236,6 +240,7 @@ func (m *Module) catalogItem(man *Manifest, installed bool) catalogView {
 		CategoryLabel: categoryLabel(man.Category), Icon: man.Icon, Version: man.Version,
 		Website: man.Website, Images: images, WarningLevel: warningLevel(man),
 		Installed: installed, Operation: m.operation(man.Slug), JobID: m.jobID(man.Slug),
+		Custom: IsCustomSlug(man.Slug),
 	}
 }
 
@@ -257,7 +262,7 @@ func (m *Module) installedItem(it *Installed, containers []ContainerInfo, docker
 		CategoryLabel: categoryLabel(cfg.Category), Icon: cfg.Icon, Version: it.Version,
 		InstalledAt: it.InstalledAt, UpdatedAt: it.UpdatedAt,
 		Operation: m.operation(it.Slug), JobID: m.jobID(it.Slug), Ports: []portView{},
-		BindAddress: cfg.BindAddress,
+		BindAddress: cfg.BindAddress, Custom: IsCustomSlug(it.Slug),
 	}
 	if man := m.catalog.Get(it.Slug); man != nil {
 		v.ManifestAvailable = true
@@ -460,6 +465,17 @@ func (m *Module) handleCatalogApp(w http.ResponseWriter, r *http.Request) error 
 	if s := auth.From(r.Context()); s != nil {
 		isAdmin = s.User.Role == auth.RoleAdmin
 	}
+	d, err := m.detailOf(r.Context(), man, it, isAdmin)
+	if err != nil {
+		return err
+	}
+	httpx.OK(w, d)
+	return nil
+}
+
+// detailOf builds the detail of a manifest: its fields, warnings, services
+// and volumes, and the installation when it is installed (it != nil).
+func (m *Module) detailOf(ctx context.Context, man *Manifest, it *Installed, isAdmin bool) (detailView, error) {
 	d := detailView{
 		catalogView:            m.catalogItem(man, it != nil),
 		LongDescription:        man.LongDescription,
@@ -480,6 +496,9 @@ func (m *Module) handleCatalogApp(w http.ResponseWriter, r *http.Request) error 
 	}
 	d.Fields = buildFields(man, in)
 	d.BindAddress = BindAll
+	if ValidBindAddress(man.BindAddress) {
+		d.BindAddress = man.BindAddress
+	}
 	if in != nil && ValidBindAddress(in.BindAddress) {
 		d.BindAddress = in.BindAddress
 	}
@@ -508,9 +527,9 @@ func (m *Module) handleCatalogApp(w http.ResponseWriter, r *http.Request) error 
 		}
 	}
 	if it != nil {
-		views, _, err := m.installedViews(r.Context())
+		views, _, err := m.installedViews(ctx)
 		if err != nil {
-			return httpx.Internal(err)
+			return d, httpx.Internal(err)
 		}
 		for i := range views {
 			if views[i].Slug == it.Slug {
@@ -518,8 +537,7 @@ func (m *Module) handleCatalogApp(w http.ResponseWriter, r *http.Request) error 
 			}
 		}
 	}
-	httpx.OK(w, d)
-	return nil
+	return d, nil
 }
 
 func (m *Module) handleReload(w http.ResponseWriter, r *http.Request) error {

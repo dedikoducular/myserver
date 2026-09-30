@@ -29,7 +29,7 @@ Panel şu bölümlerden oluşur:
 | Bölüm | Adres | İçerik |
 | --- | --- | --- |
 | Gösterge paneli | `/` | Sistem durumu ve özet bileşenleri |
-| Uygulamalar | `/apps` | Uygulama tanımlarından (manifest) Docker uygulamaları kurma |
+| Uygulamalar | `/apps` | Uygulama tanımlarından (manifest) Docker uygulamaları kurma; docker-compose dosyasından [özel uygulama](docs/custom-apps.md) ekleme |
 | Docker | `/docker` | Kapsayıcı yönetimi |
 | Dosyalar | `/files` | Dosya yöneticisi |
 | Depolama | `/storage` | Diskler, bağlama işlemleri, SMART bilgisi |

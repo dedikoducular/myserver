@@ -58,6 +58,8 @@ export interface InstalledApp {
   web_ui: WebUI | null
   ports: PortView[]
   bind_address: BindAddress
+  /** Added by an administrator from a compose file. */
+  custom: boolean
 }
 
 export interface InstalledResponse {
@@ -85,6 +87,8 @@ export interface CatalogApp {
   installed: boolean
   operation: string
   job_id: string
+  /** Added by an administrator from a compose file. */
+  custom: boolean
 }
 
 export interface InvalidManifest {
@@ -177,7 +181,29 @@ export interface AppDetail extends CatalogApp {
   installed_app: InstalledApp | null
 }
 
-export type JobKind = 'install' | 'update' | 'settings' | 'restore'
+/** A note or problem of a compose conversion. */
+export interface ComposeIssue {
+  service: string
+  key: string
+  message: string
+}
+
+/** POST /apps/custom/preview: the converted application in the shape of the
+ *  catalog detail, plus what the conversion changed. */
+export interface CustomPreview extends AppDetail {
+  conversion_notes: ComposeIssue[]
+  /** Sent back when saving, so that exactly the previewed definition is stored. */
+  digest: string
+  manifest_yaml: string
+}
+
+export interface CustomRequest {
+  name: string
+  compose: string
+  digest?: string
+}
+
+export type JobKind ='install' | 'update' | 'settings' | 'restore'
 
 export interface Job {
   id: string

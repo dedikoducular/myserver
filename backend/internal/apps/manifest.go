@@ -42,6 +42,9 @@ type Manifest struct {
 	// Architectures lists the CPU architectures (Go GOARCH names) the
 	// images support. Empty means "not declared": no restriction.
 	Architectures []string `yaml:"architectures"`
+	// BindAddress is the default publishing address offered in the install
+	// dialog: "all" (default) or "loopback".
+	BindAddress string `yaml:"bind_address"`
 
 	// Single-service form.
 	Docker  *DockerSpec  `yaml:"docker"`
@@ -201,6 +204,8 @@ var Categories = []Category{
 	{"cloud", "Bulut"},
 	{"security", "Güvenlik"},
 	{"other", "Diğer"},
+	// Reserved for applications added from a compose file in the panel.
+	{CustomCategory, "Özel"},
 }
 
 func knownCategory(id string) bool {
@@ -436,6 +441,9 @@ func (m *Manifest) validate() error {
 		if err != nil || (u.Scheme != "http" && u.Scheme != "https") || u.Host == "" || len(m.Website) > 300 {
 			return fmt.Errorf("website %q geçersiz", m.Website)
 		}
+	}
+	if m.BindAddress != "" && !ValidBindAddress(m.BindAddress) {
+		return fmt.Errorf("bind_address %q bilinmiyor (all, loopback)", m.BindAddress)
 	}
 	seenArch := map[string]bool{}
 	for _, a := range m.Architectures {
