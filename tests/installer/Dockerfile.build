@@ -1,0 +1,11 @@
+# Derleme imajı: "make release" hedefini Linux altında, deponun bir KOPYASI
+# üzerinde çalıştırmak için (çalışma ağacına yazılmaz).
+FROM node:24-bookworm-slim
+ARG GO_VERSION=1.27.1
+RUN apt-get update -qq \
+ && DEBIAN_FRONTEND=noninteractive apt-get install -y -qq --no-install-recommends \
+      make git ca-certificates curl tar gzip coreutils \
+ && rm -rf /var/lib/apt/lists/* \
+ && curl -fsSL "https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz" | tar -xz -C /usr/local
+ENV PATH=/usr/local/go/bin:$PATH GOFLAGS=-buildvcs=false GOTOOLCHAIN=local
+WORKDIR /work

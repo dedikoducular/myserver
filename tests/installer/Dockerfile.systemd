@@ -1,0 +1,20 @@
+# systemd PID 1 olarak çalışan sınama imajı (Ubuntu 24.04 veya Debian 12).
+# Yalnızca tek kullanımlık sınama kapsayıcıları içindir.
+ARG BASE=ubuntu:24.04
+FROM ${BASE}
+ENV container=docker
+# Gerçek bir sunucuda zaten bulunan temel paketler + sınama araçları (sqlite3,
+# python3: yerel https sunucusu, openssl: sınama sertifikası). Kurulum betiğinin
+# kendisinin kurması beklenen paketler (smartmontools, ufw, zip, unzip ...)
+# BİLEREK kurulmaz; böylece "eksik paketleri kur" adımı da sınanır.
+RUN apt-get update -qq \
+ && DEBIAN_FRONTEND=noninteractive apt-get install -y -qq --no-install-recommends \
+      systemd systemd-sysv dbus ca-certificates curl iproute2 procps \
+      sqlite3 python3 openssl libcap2-bin kmod iptables \
+ && rm -rf /var/lib/apt/lists/* \
+ && systemctl mask systemd-firstboot.service systemd-udevd.service \
+      systemd-modules-load.service sys-kernel-config.mount sys-kernel-debug.mount \
+      sys-kernel-tracing.mount getty.target console-getty.service \
+      systemd-logind.service >/dev/null 2>&1 || true
+STOPSIGNAL SIGRTMIN+3
+CMD ["/sbin/init"]

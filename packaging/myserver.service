@@ -1,0 +1,137 @@
+# MyServer yönetim paneli - systemd birimi
+# Kurulum yeri: /etc/systemd/system/myserver.service
+#
+# ÖNEMLİ: Bu dosyaya "sıkılaştırma" yönergesi eklemeden önce en alttaki
+# "BİLEREK KULLANILMAYAN YÖNERGELER" bölümünü okuyun. Panel, root yardımcısını
+# sudo ile çalıştırır; yardımcı bu servisin alt süreci olduğu için servise
+# uygulanan her kısıtlama (yetenek sınırı, bağlama ad alanı, seccomp süzgeci)
+# yardımcıya da miras kalır.
+
+[Unit]
+Description=MyServer Management Platform
+Documentation=file:///usr/local/share/myserver/README.md
+After=network-online.target docker.service
+Wants=network-online.target
+# Çökme döngüsü sonsuza kadar sürmesin: 5 dakika içinde 10 başarısız
+# başlatmadan sonra systemd denemeyi bırakır ("systemctl reset-failed myserver"
+# ile sıfırlanır).
+StartLimitIntervalSec=300
+StartLimitBurst=10
+
+[Service]
+Type=simple
+User=myserver
+Group=myserver
+# docker grubu: /var/run/docker.sock erişimi için. Bu üyelik host üzerinde
+# root yetkisine eşdeğerdir (README "Güvenlik modeli" bölümüne bakın).
+SupplementaryGroups=docker
+EnvironmentFile=/etc/myserver/myserver.env
+WorkingDirectory=/var/lib/myserver
+ExecStart=/usr/local/bin/myserver
+
+Restart=always
+RestartSec=5
+# KillMode=process: durdurma/yeniden başlatmada systemd YALNIZCA panel sürecine
+# sinyal gönderir; alt süreçlere dokunmaz.
+# Neden: panel, uzun süren paket güncellemelerini (apt/dpkg) sudo + yardımcı
+# üzerinden kendi alt süreci olarak başlatır. Varsayılan "control-group" (ve
+# "mixed") kipinde paneli yeniden başlatmak, çalışmakta olan apt/dpkg işlemini
+# de öldürür ve paket veritabanını yarım kalmış durumda bırakabilir
+# ("dpkg was interrupted"). Bu, geride kalan bir süreçten daha büyük zarardır.
+# Sonuçları:
+#   * Panel yeniden başlatıldığında süren bir güncelleme systemd tarafından
+#     öldürülmez. (Çıktısını panele bir boru üzerinden yazan süreç, panel
+#     kapanınca yine de SIGPIPE alabilir; tam yalıtım için uzun işlemlerin
+#     "updates-self" gibi systemd-run ile ayrı bir birimde başlatılması gerekir.)
+#   * Alt süreçleri (web terminali oturumları vb.) kapatmak panelin kendi
+#     sorumluluğundadır; panel kapanırken PTY'leri kapatır ve kabuklar SIGHUP
+#     alır. Geride süreç kalırsa systemd bir sonraki başlatmada günlüğe
+#     "left-over process" uyarısı yazar; bu zararsızdır.
+#   * MyServer'ın kendi güncellemesi bu servisin dışında, ayrı bir birimde
+#     (myserver-update) çalışır; servisi güvenle durdurup başlatabilir.
+KillMode=process
+TimeoutStopSec=30
+
+# Uygulama JSON günlüklerini stdout'a yazar; journald toplar.
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=myserver
+
+# Dosya yöneticisi, SSE/WebSocket bağlantıları ve Docker istemcisi için.
+LimitNOFILE=65536
+# Kontrolden çıkmış bir süreç çoğalmasına üst sınır (terminal oturumları ve
+# yardımcı çağrıları için fazlasıyla yeterli).
+TasksMax=4096
+
+# --- Yetenekler (capabilities) ------------------------------------------
+# Panel süreci root DEĞİLDİR. Dosya yöneticisinin kullanıcı dizinlerinde
+# çalışabilmesi için yalnızca şu dört yetenek "ambient" olarak verilir:
+AmbientCapabilities=CAP_DAC_OVERRIDE CAP_DAC_READ_SEARCH CAP_CHOWN CAP_FOWNER
+#
+# CapabilityBoundingSet BİLEREK AYARLANMAMIŞTIR (varsayılan: tam küme).
+# Neden:
+#   * Bounding set, execve() ile kazanılabilecek yeteneklerin üst sınırıdır ve
+#     alt süreçlere miras kalır; setuid-root bir program (sudo) bile bu kümenin
+#     dışındaki bir yeteneği elde edemez.
+#   * Panel, ayrıcalıklı işlemleri "sudo -n /usr/local/libexec/myserver-helper"
+#     ile yapar. Bounding set yukarıdaki dört yetenekle sınırlansaydı yardımcı
+#     uid 0 olarak çalışır ama CAP_SYS_ADMIN (mount), CAP_NET_ADMIN (ufw),
+#     CAP_SETUID/CAP_SETGID (sudo'nun kendisi) vb. olmadan kalırdı; sudo daha
+#     ilk adımda başarısız olurdu.
+#   * Bounding set, sürecin SAHİP OLDUĞU yetenekleri belirlemez. User=myserver
+#     ile başlatılan süreçte permitted/effective/inheritable kümeleri yalnızca
+#     AmbientCapabilities satırındaki dört yetenekten oluşur. Yani panel süreci
+#     dört yetenekle çalışır; tam root yetkisi yalnızca sudoers kuralının izin
+#     verdiği tek program (myserver-helper) üzerinden elde edilebilir.
+#
+# NoNewPrivileges BİLEREK AYARLANMAMIŞTIR: "yes" olsaydı çekirdek setuid bitini
+# yok sayar ve sudo çalışmazdı.
+
+# --- Uyumlu sıkılaştırma --------------------------------------------------
+# Yalnızca bağlama ad alanı (mount namespace) oluşturmayan, seccomp süzgeci
+# kurmayan ve NoNewPrivileges gerektirmeyen ayarlar kullanılabilir.
+# Çekirdek oturum anahtarlığını diğer servislerle paylaşma.
+KeyringMode=private
+# Bellek sıkıştığında çekirdek paneli, sistem servislerinden önce sonlandırsın.
+OOMScoreAdjust=200
+
+# --- BİLEREK KULLANILMAYAN YÖNERGELER -----------------------------------
+# Aşağıdakiler eklenirse panel veya yardımcı bozulur:
+#
+#   NoNewPrivileges=yes, RestrictSUIDSGID=yes
+#       sudo setuid bir programdır; ikisi de sudo'yu çalışmaz hale getirir.
+#
+#   SystemCallFilter, SystemCallArchitectures, RestrictAddressFamilies,
+#   RestrictNamespaces, RestrictRealtime, LockPersonality,
+#   MemoryDenyWriteExecute
+#       seccomp süzgeci kurarlar. Servis root olmayan kullanıcıyla çalıştığı
+#       için systemd bunlarla birlikte NoNewPrivileges=yes ayarını ZORUNLU
+#       olarak etkinleştirir (sudo bozulur). Ayrıca süzgeç yardımcıya ve onun
+#       çalıştırdığı mount/ufw/apt gibi araçlara da miras kalır.
+#
+#   ProtectSystem, ProtectHome, PrivateTmp, PrivateDevices, PrivateMounts,
+#   ProtectKernelTunables, ProtectKernelModules, ProtectKernelLogs,
+#   ProtectControlGroups, ProtectProc, ProcSubset, ReadOnlyPaths,
+#   ReadWritePaths, InaccessiblePaths, TemporaryFileSystem, BindPaths
+#       hepsi servis için özel bir bağlama ad alanı oluşturur. Yardımcı bu ad
+#       alanının içinde çalışacağından yaptığı "mount" işlemi host'a yayılmaz
+#       (disk panelde bağlı görünür, sistemde bağlı olmaz). Ek olarak:
+#       ProtectSystem /etc/fstab yazımını ve /mnt, /media, /home altındaki
+#       dosya yöneticisi işlemlerini; ProtectHome /home erişimini;
+#       PrivateDevices diskleri (/dev/sd*, /dev/nvme*) engeller.
+#
+#   ProtectClock, ProtectHostname
+#       yardımcının saat dilimi/saat ve makine adı ayarlarını engeller.
+#
+#   DevicePolicy, DeviceAllow, IPAddressDeny, RestrictNetworkInterfaces
+#       cgroup düzeyinde uygulanır ve yardımcıyı da kapsar (SMART okuma, disk
+#       işlemleri, güvenlik duvarı yönetimi bozulur).
+#
+#   UMask
+#       varsayılan (0022) korunur; daha kısıtlayıcı bir değer yardımcının
+#       /etc altında yazdığı dosyaların ve dosya yöneticisiyle oluşturulan
+#       dosyaların izinlerini beklenmedik biçimde değiştirirdi. Veri dizini
+#       zaten 0750 ile korunur.
+
+[Install]
+WantedBy=multi-user.target

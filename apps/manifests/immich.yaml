@@ -1,0 +1,108 @@
+schema: 1
+name: Immich
+slug: immich
+description: Fotoğraf Yedekleme
+long_description: |
+  Telefonunuzdaki fotoğraf ve videoları kendi sunucunuza yedekleyen, yüz ve
+  nesne tanıma ile arama yapabilen fotoğraf ve video yönetim uygulaması.
+  Dört servisten oluşur: sunucu, makine öğrenmesi, Valkey (önbellek) ve
+  vektör eklentili PostgreSQL veritabanı.
+category: media
+icon: immich.svg
+version: v3
+website: https://immich.app
+architectures: [amd64, arm64]
+notes: |
+  En az 4 GB (önerilen 6 GB) bellek gerekir. İlk açılışta oluşturduğunuz
+  hesap yönetici hesabı olur.
+  Fotoğraflar seçtiğiniz klasöre, veritabanı ise ayrı bir Docker biriminde
+  saklanır. Veritabanı parolası kurulumda rastgele üretilir; uygulama
+  kaldırılırken veriler korunursa yeniden kurulumda aynı parola kullanılır.
+  Kurulan sürüm Immich 3 serisidir (görüntü etiketi "v3"). "Güncelle"
+  işlemi bu etiketi izler: 3.x içindeki en yeni sürümü indirir, bir sonraki
+  ana sürüme (4.x) kendiliğinden geçmez.
+  Immich hızlı geliştirilen bir projedir; güncellemeden önce sürüm notlarını
+  okuyun ve fotoğraflarınızın ayrı bir yedeğini tutun.
+services:
+  - name: redis
+    image: docker.io/valkey/valkey:9
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli ping | grep -q PONG || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+  - name: database
+    image: ghcr.io/immich-app/postgres:14-vectorchord0.4.3-pgvectors0.2.0
+    restart: always
+    shm_size: 128m
+    env:
+      - name: POSTGRES_PASSWORD
+        key: db_password
+        label: Veritabanı parolası
+        description: Boş bırakırsanız rastgele bir parola üretilir.
+        secret: true
+        generate: password
+      - name: POSTGRES_USER
+        default: postgres
+        fixed: true
+      - name: POSTGRES_DB
+        default: immich
+        fixed: true
+      - name: POSTGRES_INITDB_ARGS
+        default: "--data-checksums"
+        fixed: true
+    volumes:
+      - source: pgdata
+        target: /var/lib/postgresql/data
+        label: Veritabanı
+  - name: immich-machine-learning
+    image: ghcr.io/immich-app/immich-machine-learning:v3
+    restart: always
+    volumes:
+      - source: model-cache
+        target: /cache
+        label: Model önbelleği
+  - name: server
+    image: ghcr.io/immich-app/immich-server:v3
+    restart: always
+    depends_on: [redis, database]
+    env:
+      - name: DB_PASSWORD
+        key: db_password
+        secret: true
+      - name: DB_USERNAME
+        default: postgres
+        fixed: true
+      - name: DB_DATABASE_NAME
+        default: immich
+        fixed: true
+      - name: DB_HOSTNAME
+        default: database
+        fixed: true
+      - name: REDIS_HOSTNAME
+        default: redis
+        fixed: true
+      - name: IMMICH_MACHINE_LEARNING_URL
+        default: http://immich-machine-learning:3003
+        fixed: true
+      - name: TZ
+        label: Saat dilimi
+        default: Europe/Istanbul
+    ports:
+      - key: web
+        host: 2283
+        container: 2283
+        protocol: tcp
+        label: Web arayüzü
+        web_ui:
+          scheme: http
+          path: /
+    volumes:
+      - type: bind
+        key: upload
+        source: /data/immich
+        target: /data
+        label: Fotoğraf klasörü
+        description: Yüklenen fotoğraf ve videoların saklanacağı klasör. Ağ paylaşımı yerine yerel bir disk seçin.
+        required: true

@@ -1,0 +1,52 @@
+schema: 1
+name: Vaultwarden
+slug: vaultwarden
+description: Şifre Yöneticisi
+long_description: |
+  Bitwarden istemcileriyle uyumlu, hafif bir parola kasası sunucusu.
+category: tools
+icon: vaultwarden.svg
+version: latest
+website: https://github.com/dani-garcia/vaultwarden
+architectures: [amd64, arm64]
+notes: |
+  ÖNEMLİ: Web kasası yalnızca HTTPS üzerinden (veya sunucunun kendisinde
+  localhost üzerinden) çalışır. http://sunucu-ip:port adresinden hesap
+  oluşturamaz ve giriş yapamazsınız. Vaultwarden'ın önüne HTTPS sağlayan bir
+  ters vekil sunucu koyun ve "Alan adı" alanına https:// ile başlayan tam
+  adresi yazın.
+  Hesabınızı oluşturduktan sonra "Yeni kayıtlara izin ver" ayarını false
+  yaparak yabancıların hesap açmasını engelleyin.
+  Yönetim sayfası (/admin) yalnızca bir yönetim anahtarı girerseniz açılır.
+docker:
+  image: vaultwarden/server:latest
+  restart: unless-stopped
+env:
+  - name: DOMAIN
+    label: Alan adı
+    description: Kasaya erişeceğiniz tam adres (örnek https://kasa.example.com). Boş bırakılabilir.
+  - name: SIGNUPS_ALLOWED
+    label: Yeni kayıtlara izin ver
+    description: true veya false.
+    default: "true"
+    required: true
+  - name: ADMIN_TOKEN
+    label: Yönetim anahtarı
+    description: /admin sayfasının parolası. Boş bırakılırsa yönetim sayfası kapalı kalır.
+    secret: true
+  - name: TZ
+    label: Saat dilimi
+    default: Europe/Istanbul
+ports:
+  - key: web
+    host: 8084
+    container: 80
+    protocol: tcp
+    label: Web arayüzü
+    web_ui:
+      scheme: http
+      path: /
+volumes:
+  - source: data
+    target: /data
+    label: Kasa verileri

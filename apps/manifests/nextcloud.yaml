@@ -1,0 +1,82 @@
+schema: 1
+name: Nextcloud
+slug: nextcloud
+description: Bulut Depolama
+long_description: |
+  Dosya eşitleme ve paylaşma, takvim, rehber ve ortak belge düzenleme sunan
+  kişisel bulut. PostgreSQL veritabanı ile birlikte kurulur.
+category: cloud
+icon: nextcloud.svg
+version: latest
+website: https://nextcloud.com
+architectures: [amd64, arm64]
+notes: |
+  Kurulumdan sonra "Aç" ile gidip yönetici hesabınızı oluşturun. Veritabanı
+  ayarları otomatik doldurulur.
+  Nextcloud'a bir alan adı üzerinden erişecekseniz alan adını "Güvenilen
+  alan adları" alanına yazın; aksi halde "güvenilmeyen alan adı" uyarısı
+  alırsınız. İnternete açacaksanız önüne HTTPS sağlayan bir ters vekil
+  sunucu koyun.
+services:
+  - name: db
+    image: postgres:16-alpine
+    restart: unless-stopped
+    env:
+      - name: POSTGRES_PASSWORD
+        key: db_password
+        label: Veritabanı parolası
+        description: Boş bırakırsanız rastgele bir parola üretilir.
+        secret: true
+        generate: password
+      - name: POSTGRES_USER
+        default: nextcloud
+        fixed: true
+      - name: POSTGRES_DB
+        default: nextcloud
+        fixed: true
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U nextcloud -d nextcloud"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+    volumes:
+      - source: db
+        target: /var/lib/postgresql/data
+        label: Veritabanı
+  - name: nextcloud
+    image: nextcloud:latest
+    restart: unless-stopped
+    depends_on: [db]
+    env:
+      - name: POSTGRES_HOST
+        default: db
+        fixed: true
+      - name: POSTGRES_DB
+        default: nextcloud
+        fixed: true
+      - name: POSTGRES_USER
+        default: nextcloud
+        fixed: true
+      - name: POSTGRES_PASSWORD
+        key: db_password
+        secret: true
+      - name: NEXTCLOUD_TRUSTED_DOMAINS
+        label: Güvenilen alan adları
+        description: Boşlukla ayrılmış alan adları veya IP adresleri (örnek bulut.example.com 192.168.1.10). Boş bırakılabilir.
+      - name: TZ
+        label: Saat dilimi
+        default: Europe/Istanbul
+    ports:
+      - key: web
+        host: 8082
+        container: 80
+        protocol: tcp
+        label: Web arayüzü
+        web_ui:
+          scheme: http
+          path: /
+    volumes:
+      - source: html
+        target: /var/www/html
+        label: Uygulama ve kullanıcı dosyaları

@@ -1,0 +1,57 @@
+schema: 1
+name: AdGuard Home
+slug: adguard-home
+description: Reklam Engelleyici
+long_description: |
+  Ağınızdaki tüm cihazlar için reklamları ve izleyicileri DNS düzeyinde
+  engelleyen DNS sunucusu.
+category: network
+icon: adguard-home.svg
+version: latest
+website: https://adguard.com/adguard-home/overview.html
+architectures: [amd64, arm64]
+notes: |
+  İlk kurulum sihirbazı 3000 numaralı portta açılır. Sihirbazda "Yönetim
+  arayüzü" portunu 3000 olarak ayarlarsanız "Aç" bağlantısı kurulumdan sonra
+  da çalışır; 80 olarak bırakırsanız arayüze aşağıdaki "Web arayüzü (80)"
+  portundan erişirsiniz.
+  53 numaralı port Ubuntu'da systemd-resolved tarafından kullanılıyor
+  olabilir. Kurulum bu durumda portun dolu olduğunu bildirir; devam etmek
+  için sunucuda /etc/systemd/resolved.conf dosyasında DNSStubListener=no
+  ayarını yapıp systemd-resolved servisini yeniden başlatın.
+  Cihazlarınızın bu sunucuyu kullanması için modeminizde DNS adresi olarak
+  sunucunun IP adresini girin.
+docker:
+  image: adguard/adguardhome:latest
+  restart: unless-stopped
+ports:
+  - key: dns-tcp
+    host: 53
+    container: 53
+    protocol: tcp
+    label: DNS (TCP)
+  - key: dns-udp
+    host: 53
+    container: 53
+    protocol: udp
+    label: DNS (UDP)
+  - key: setup
+    host: 3000
+    container: 3000
+    protocol: tcp
+    label: Kurulum ve yönetim arayüzü
+    web_ui:
+      scheme: http
+      path: /
+  - key: web
+    host: 8083
+    container: 80
+    protocol: tcp
+    label: Web arayüzü (80)
+volumes:
+  - source: work
+    target: /opt/adguardhome/work
+    label: Çalışma verileri
+  - source: conf
+    target: /opt/adguardhome/conf
+    label: Yapılandırma

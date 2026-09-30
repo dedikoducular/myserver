@@ -1,0 +1,7 @@
+Preparing to unpack .../libc6_2.39-0ubuntu8.4_amd64.deb ...
+Unpacking libc6:amd64 (2.39-0ubuntu8.4) over (2.39-0ubuntu8.3) ...
+dpkg: error processing archive /var/cache/apt/archives/libc6_2.39-0ubuntu8.4_amd64.deb (--unpack):
+ cannot copy extracted data for './usr/lib/x86_64-linux-gnu/libc.so.6' to '/usr/lib/x86_64-linux-gnu/libc.so.6.dpkg-new': failed to write (No space left on device)
+Errors were encountered while processing:
+ /var/cache/apt/archives/libc6_2.39-0ubuntu8.4_amd64.deb
+E: Sub-process /usr/bin/dpkg returned an error code (1)

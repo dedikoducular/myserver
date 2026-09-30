@@ -1,0 +1,39 @@
+schema: 1
+name: Home Assistant
+slug: home-assistant
+description: Akıllı Ev
+long_description: |
+  Farklı markaların akıllı ev cihazlarını tek yerden yönetmenizi ve
+  otomasyonlar kurmanızı sağlayan ev otomasyonu platformu.
+category: smart_home
+icon: home-assistant.svg
+version: stable
+website: https://www.home-assistant.io
+architectures: [amd64, arm64]
+notes: |
+  Home Assistant, ağdaki cihazları bulabilmek için sunucunun ağını doğrudan
+  kullanır; bu nedenle portu (8123) değiştirilemez.
+  İlk açılış birkaç dakika sürebilir. "Aç" ile gidip hesabınızı oluşturun.
+  Bu kurulum Home Assistant Container türündedir; eklenti (add-on) mağazası
+  bulunmaz.
+docker:
+  image: ghcr.io/home-assistant/home-assistant:stable
+  restart: unless-stopped
+  network_mode: host
+env:
+  - name: TZ
+    label: Saat dilimi
+    default: Europe/Istanbul
+ports:
+  - key: web
+    host: 8123
+    container: 8123
+    protocol: tcp
+    label: Web arayüzü
+    web_ui:
+      scheme: http
+      path: /
+volumes:
+  - source: config
+    target: /config
+    label: Yapılandırma

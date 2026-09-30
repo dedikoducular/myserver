@@ -1,0 +1,26 @@
+Ign:1 http://security.ubuntu.com/ubuntu noble-security InRelease
+Ign:2 http://archive.ubuntu.com/ubuntu noble InRelease
+Ign:3 http://archive.ubuntu.com/ubuntu noble-updates InRelease
+Ign:4 http://archive.ubuntu.com/ubuntu noble-backports InRelease
+Ign:2 http://archive.ubuntu.com/ubuntu noble InRelease
+Ign:1 http://security.ubuntu.com/ubuntu noble-security InRelease
+Ign:3 http://archive.ubuntu.com/ubuntu noble-updates InRelease
+Ign:4 http://archive.ubuntu.com/ubuntu noble-backports InRelease
+Ign:2 http://archive.ubuntu.com/ubuntu noble InRelease
+Ign:1 http://security.ubuntu.com/ubuntu noble-security InRelease
+Ign:3 http://archive.ubuntu.com/ubuntu noble-updates InRelease
+Ign:4 http://archive.ubuntu.com/ubuntu noble-backports InRelease
+Err:2 http://archive.ubuntu.com/ubuntu noble InRelease
+  Temporary failure resolving 'archive.ubuntu.com'
+Err:1 http://security.ubuntu.com/ubuntu noble-security InRelease
+  Temporary failure resolving 'security.ubuntu.com'
+Err:3 http://archive.ubuntu.com/ubuntu noble-updates InRelease
+  Temporary failure resolving 'archive.ubuntu.com'
+Err:4 http://archive.ubuntu.com/ubuntu noble-backports InRelease
+  Temporary failure resolving 'archive.ubuntu.com'
+Reading package lists...
+W: Failed to fetch http://archive.ubuntu.com/ubuntu/dists/noble/InRelease  Temporary failure resolving 'archive.ubuntu.com'
+W: Failed to fetch http://archive.ubuntu.com/ubuntu/dists/noble-updates/InRelease  Temporary failure resolving 'archive.ubuntu.com'
+W: Failed to fetch http://archive.ubuntu.com/ubuntu/dists/noble-backports/InRelease  Temporary failure resolving 'archive.ubuntu.com'
+W: Failed to fetch http://security.ubuntu.com/ubuntu/dists/noble-security/InRelease  Temporary failure resolving 'security.ubuntu.com'
+W: Some index files failed to download. They have been ignored, or old ones used instead.

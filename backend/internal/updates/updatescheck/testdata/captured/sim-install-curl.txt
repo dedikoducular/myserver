@@ -1,0 +1,64 @@
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  ca-certificates krb5-locales libbrotli1 libcurl4t64 libgssapi-krb5-2
+  libk5crypto3 libkeyutils1 libkrb5-3 libkrb5support0 libldap-common libldap2
+  libnghttp2-14 libpsl5t64 librtmp1 libsasl2-2 libsasl2-modules
+  libsasl2-modules-db libssh-4 libssl3t64 openssl publicsuffix
+Suggested packages:
+  krb5-doc krb5-user libsasl2-modules-gssapi-mit
+  | libsasl2-modules-gssapi-heimdal libsasl2-modules-ldap libsasl2-modules-otp
+  libsasl2-modules-sql
+The following NEW packages will be installed:
+  ca-certificates curl krb5-locales libbrotli1 libcurl4t64 libgssapi-krb5-2
+  libk5crypto3 libkeyutils1 libkrb5-3 libkrb5support0 libldap-common libldap2
+  libnghttp2-14 libpsl5t64 librtmp1 libsasl2-2 libsasl2-modules
+  libsasl2-modules-db libssh-4 openssl publicsuffix
+The following packages will be upgraded:
+  libssl3t64
+1 upgraded, 21 newly installed, 0 to remove and 3 not upgraded.
+Inst libssl3t64 [3.0.13-0ubuntu3.15] (3.0.13-0ubuntu3.16 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Conf libssl3t64 (3.0.13-0ubuntu3.16 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Inst openssl (3.0.13-0ubuntu3.16 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Inst ca-certificates (20260601~24.04.1 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [all])
+Inst krb5-locales (1.20.1-6ubuntu2.10 Ubuntu:24.04/noble-updates [all])
+Inst libkrb5support0 (1.20.1-6ubuntu2.10 Ubuntu:24.04/noble-updates [amd64])
+Inst libk5crypto3 (1.20.1-6ubuntu2.10 Ubuntu:24.04/noble-updates [amd64])
+Inst libkeyutils1 (1.6.3-3build1 Ubuntu:24.04/noble [amd64])
+Inst libkrb5-3 (1.20.1-6ubuntu2.10 Ubuntu:24.04/noble-updates [amd64])
+Inst libgssapi-krb5-2 (1.20.1-6ubuntu2.10 Ubuntu:24.04/noble-updates [amd64])
+Inst libnghttp2-14 (1.59.0-1ubuntu0.4 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Inst libpsl5t64 (0.21.2-1.1build1 Ubuntu:24.04/noble [amd64])
+Inst publicsuffix (20231001.0357-0.1 Ubuntu:24.04/noble [all])
+Inst libbrotli1 (1.1.0-2build2 Ubuntu:24.04/noble [amd64])
+Inst libsasl2-modules-db (2.1.28+dfsg1-5ubuntu3.1 Ubuntu:24.04/noble-updates [amd64])
+Inst libsasl2-2 (2.1.28+dfsg1-5ubuntu3.1 Ubuntu:24.04/noble-updates [amd64])
+Inst libldap2 (2.6.10+dfsg-0ubuntu0.24.04.1 Ubuntu:24.04/noble-updates [amd64])
+Inst librtmp1 (2.4+20151223.gitfa8646d.1-2build7 Ubuntu:24.04/noble [amd64])
+Inst libssh-4 (0.10.6-2ubuntu0.5 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Inst libcurl4t64 (8.5.0-2ubuntu10.15 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Inst curl (8.5.0-2ubuntu10.15 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Inst libldap-common (2.6.10+dfsg-0ubuntu0.24.04.1 Ubuntu:24.04/noble-updates [all])
+Inst libsasl2-modules (2.1.28+dfsg1-5ubuntu3.1 Ubuntu:24.04/noble-updates [amd64])
+Conf openssl (3.0.13-0ubuntu3.16 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Conf ca-certificates (20260601~24.04.1 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [all])
+Conf krb5-locales (1.20.1-6ubuntu2.10 Ubuntu:24.04/noble-updates [all])
+Conf libkrb5support0 (1.20.1-6ubuntu2.10 Ubuntu:24.04/noble-updates [amd64])
+Conf libk5crypto3 (1.20.1-6ubuntu2.10 Ubuntu:24.04/noble-updates [amd64])
+Conf libkeyutils1 (1.6.3-3build1 Ubuntu:24.04/noble [amd64])
+Conf libkrb5-3 (1.20.1-6ubuntu2.10 Ubuntu:24.04/noble-updates [amd64])
+Conf libgssapi-krb5-2 (1.20.1-6ubuntu2.10 Ubuntu:24.04/noble-updates [amd64])
+Conf libnghttp2-14 (1.59.0-1ubuntu0.4 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Conf libpsl5t64 (0.21.2-1.1build1 Ubuntu:24.04/noble [amd64])
+Conf publicsuffix (20231001.0357-0.1 Ubuntu:24.04/noble [all])
+Conf libbrotli1 (1.1.0-2build2 Ubuntu:24.04/noble [amd64])
+Conf libsasl2-modules-db (2.1.28+dfsg1-5ubuntu3.1 Ubuntu:24.04/noble-updates [amd64])
+Conf libsasl2-2 (2.1.28+dfsg1-5ubuntu3.1 Ubuntu:24.04/noble-updates [amd64])
+Conf libldap2 (2.6.10+dfsg-0ubuntu0.24.04.1 Ubuntu:24.04/noble-updates [amd64])
+Conf librtmp1 (2.4+20151223.gitfa8646d.1-2build7 Ubuntu:24.04/noble [amd64])
+Conf libssh-4 (0.10.6-2ubuntu0.5 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Conf libcurl4t64 (8.5.0-2ubuntu10.15 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Conf curl (8.5.0-2ubuntu10.15 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Conf libldap-common (2.6.10+dfsg-0ubuntu0.24.04.1 Ubuntu:24.04/noble-updates [all])
+Conf libsasl2-modules (2.1.28+dfsg1-5ubuntu3.1 Ubuntu:24.04/noble-updates [amd64])

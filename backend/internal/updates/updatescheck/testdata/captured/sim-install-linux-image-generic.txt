@@ -1,0 +1,344 @@
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  adduser amd64-microcode busybox-initramfs ca-certificates cpio dbus dbus-bin
+  dbus-daemon dbus-session-bus-common dbus-system-bus-common dbus-user-session
+  dhcpcd-base distro-info-data dmsetup dracut-install firmware-sof-signed
+  gettext-base gir1.2-girepository-2.0 gir1.2-glib-2.0 grub-common
+  grub-gfxpayload-lists grub-pc grub-pc-bin grub2-common initramfs-tools
+  initramfs-tools-bin initramfs-tools-core intel-microcode iso-codes
+  iucode-tool klibc-utils kmod libapparmor1 libargon2-1 libbrotli1
+  libcryptsetup12 libdbus-1-3 libdbus-glib-1-2 libdevmapper1.02.1
+  libduktape207 libefiboot1t64 libefivar1t64 libevdev2 libexpat1 libfdisk1
+  libfreetype6 libfuse3-3 libgirepository-1.0-1 libglib2.0-0t64
+  libglib2.0-data libgudev-1.0-0 libicu74 libimobiledevice6 libjson-c5
+  libklibc libkmod2 libnss-systemd libpam-systemd libplist-2.0-4
+  libpng16-16t64 libpolkit-agent-1-0 libpolkit-gobject-1-0 libpython3-stdlib
+  libpython3.12-minimal libpython3.12-stdlib libreadline8t64 libsqlite3-0
+  libssl3t64 libsystemd-shared libupower-glib3 libusb-1.0-0 libusbmuxd6
+  libxml2 linux-base linux-firmware linux-firmware-amd-graphics
+  linux-firmware-amd-misc linux-firmware-broadcom-wireless
+  linux-firmware-intel-graphics linux-firmware-intel-misc
+  linux-firmware-intel-wireless linux-firmware-marvell-prestera
+  linux-firmware-marvell-wireless linux-firmware-mediatek
+  linux-firmware-mellanox-spectrum linux-firmware-misc
+  linux-firmware-netronome linux-firmware-nvidia-graphics
+  linux-firmware-qlogic linux-firmware-qualcomm-graphics
+  linux-firmware-qualcomm-misc linux-firmware-qualcomm-wireless
+  linux-firmware-realtek linux-image-6.8.0-142-generic
+  linux-modules-6.8.0-142-generic linux-modules-extra-6.8.0-142-generic
+  lsb-release media-types netbase networkd-dispatcher openssl os-prober
+  polkitd python-apt-common python3 python3-apt python3-dbus python3-gi
+  python3-minimal python3.12 python3.12-minimal readline-common sgml-base
+  shared-mime-info systemd systemd-dev systemd-hwe-hwdb systemd-resolved
+  systemd-sysv systemd-timesyncd thermald tzdata ucf udev upower usbmuxd
+  wireless-regdb xdg-user-dirs xml-core zstd
+Suggested packages:
+  liblocale-gettext-perl perl cron quota ecryptfs-utils libarchive-dev
+  multiboot-doc grub-emu mtools xorriso desktop-base console-setup
+  bash-completion isoquery fuse3 low-memory-monitor libusbmuxd-tools fdutils
+  linux-tools linux-headers-6.8.0-142-generic iw | wireless-tools polkitd-pkla
+  python3-doc python3-tk python3-venv python-apt-doc python-dbus-doc
+  python3.12-venv python3.12-doc binutils binfmt-support readline-doc
+  sgml-base-doc systemd-container systemd-homed systemd-userdbd systemd-boot
+  libfido2-1 libip4tc2 libqrencode4 libtss2-esys-3.0.2-0 libtss2-mu-4.0.1-0
+  libtss2-rc0 libtss2-tcti-device0 debhelper
+The following NEW packages will be installed:
+  adduser amd64-microcode busybox-initramfs ca-certificates cpio dbus dbus-bin
+  dbus-daemon dbus-session-bus-common dbus-system-bus-common dbus-user-session
+  dhcpcd-base distro-info-data dmsetup dracut-install firmware-sof-signed
+  gettext-base gir1.2-girepository-2.0 gir1.2-glib-2.0 grub-common
+  grub-gfxpayload-lists grub-pc grub-pc-bin grub2-common initramfs-tools
+  initramfs-tools-bin initramfs-tools-core intel-microcode iso-codes
+  iucode-tool klibc-utils kmod libapparmor1 libargon2-1 libbrotli1
+  libcryptsetup12 libdbus-1-3 libdbus-glib-1-2 libdevmapper1.02.1
+  libduktape207 libefiboot1t64 libefivar1t64 libevdev2 libexpat1 libfdisk1
+  libfreetype6 libfuse3-3 libgirepository-1.0-1 libglib2.0-0t64
+  libglib2.0-data libgudev-1.0-0 libicu74 libimobiledevice6 libjson-c5
+  libklibc libkmod2 libnss-systemd libpam-systemd libplist-2.0-4
+  libpng16-16t64 libpolkit-agent-1-0 libpolkit-gobject-1-0 libpython3-stdlib
+  libpython3.12-minimal libpython3.12-stdlib libreadline8t64 libsqlite3-0
+  libsystemd-shared libupower-glib3 libusb-1.0-0 libusbmuxd6 libxml2
+  linux-base linux-firmware linux-firmware-amd-graphics
+  linux-firmware-amd-misc linux-firmware-broadcom-wireless
+  linux-firmware-intel-graphics linux-firmware-intel-misc
+  linux-firmware-intel-wireless linux-firmware-marvell-prestera
+  linux-firmware-marvell-wireless linux-firmware-mediatek
+  linux-firmware-mellanox-spectrum linux-firmware-misc
+  linux-firmware-netronome linux-firmware-nvidia-graphics
+  linux-firmware-qlogic linux-firmware-qualcomm-graphics
+  linux-firmware-qualcomm-misc linux-firmware-qualcomm-wireless
+  linux-firmware-realtek linux-image-6.8.0-142-generic linux-image-generic
+  linux-modules-6.8.0-142-generic linux-modules-extra-6.8.0-142-generic
+  lsb-release media-types netbase networkd-dispatcher openssl os-prober
+  polkitd python-apt-common python3 python3-apt python3-dbus python3-gi
+  python3-minimal python3.12 python3.12-minimal readline-common sgml-base
+  shared-mime-info systemd systemd-dev systemd-hwe-hwdb systemd-resolved
+  systemd-sysv systemd-timesyncd thermald tzdata ucf udev upower usbmuxd
+  wireless-regdb xdg-user-dirs xml-core zstd
+The following packages will be upgraded:
+  libssl3t64
+1 upgraded, 130 newly installed, 0 to remove and 3 not upgraded.
+Inst libssl3t64 [3.0.13-0ubuntu3.15] (3.0.13-0ubuntu3.16 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Conf libssl3t64 (3.0.13-0ubuntu3.16 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Inst libpython3.12-minimal (3.12.3-1ubuntu0.17 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Inst libexpat1 (2.6.1-2ubuntu0.6 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Inst python3.12-minimal (3.12.3-1ubuntu0.17 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Conf libpython3.12-minimal (3.12.3-1ubuntu0.17 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Conf libexpat1 (2.6.1-2ubuntu0.6 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Conf python3.12-minimal (3.12.3-1ubuntu0.17 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Inst python3-minimal (3.12.3-0ubuntu2.1 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Inst media-types (10.1.0 Ubuntu:24.04/noble [all])
+Inst netbase (6.4 Ubuntu:24.04/noble [all])
+Inst tzdata (2026c-0ubuntu0.24.04.1 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [all])
+Inst readline-common (8.2-4build1 Ubuntu:24.04/noble [all])
+Inst libreadline8t64 (8.2-4build1 Ubuntu:24.04/noble [amd64])
+Inst libsqlite3-0 (3.45.1-1ubuntu2.8 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Inst libpython3.12-stdlib (3.12.3-1ubuntu0.17 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Inst python3.12 (3.12.3-1ubuntu0.17 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Inst libpython3-stdlib (3.12.3-0ubuntu2.1 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Conf python3-minimal (3.12.3-0ubuntu2.1 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Inst python3 (3.12.3-0ubuntu2.1 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Inst libapparmor1 (4.0.1really4.0.1-0ubuntu0.24.04.8 Ubuntu:24.04/noble-updates [amd64])
+Inst libargon2-1 (0~20190702+dfsg-4build1 Ubuntu:24.04/noble [amd64])
+Inst libdevmapper1.02.1 (2:1.02.185-3ubuntu3.2 Ubuntu:24.04/noble-updates [amd64])
+Inst libjson-c5 (0.17-1build1 Ubuntu:24.04/noble [amd64])
+Inst libcryptsetup12 (2:2.7.0-1ubuntu4.2 Ubuntu:24.04/noble-updates [amd64])
+Inst libfdisk1 (2.39.3-9ubuntu6.6 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Inst libkmod2 (31+20240202-2ubuntu7.2 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Inst libsystemd-shared (255.4-1ubuntu8.17 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Inst systemd-dev (255.4-1ubuntu8.17 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [all])
+Inst systemd (255.4-1ubuntu8.17 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Conf libapparmor1 (4.0.1really4.0.1-0ubuntu0.24.04.8 Ubuntu:24.04/noble-updates [amd64])
+Conf libargon2-1 (0~20190702+dfsg-4build1 Ubuntu:24.04/noble [amd64])
+Conf libdevmapper1.02.1 (2:1.02.185-3ubuntu3.2 Ubuntu:24.04/noble-updates [amd64])
+Conf libjson-c5 (0.17-1build1 Ubuntu:24.04/noble [amd64])
+Conf libcryptsetup12 (2:2.7.0-1ubuntu4.2 Ubuntu:24.04/noble-updates [amd64])
+Conf libfdisk1 (2.39.3-9ubuntu6.6 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Conf libkmod2 (31+20240202-2ubuntu7.2 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Conf libsystemd-shared (255.4-1ubuntu8.17 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Conf systemd-dev (255.4-1ubuntu8.17 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [all])
+Conf systemd (255.4-1ubuntu8.17 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Inst systemd-sysv (255.4-1ubuntu8.17 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Inst sgml-base (1.31 Ubuntu:24.04/noble [all])
+Inst adduser (3.137ubuntu1 Ubuntu:24.04/noble [all])
+Conf adduser (3.137ubuntu1 Ubuntu:24.04/noble [all])
+Inst openssl (3.0.13-0ubuntu3.16 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Inst ca-certificates (20260601~24.04.1 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [all])
+Inst libdbus-1-3 (1.14.10-4ubuntu4.1 Ubuntu:24.04/noble-updates [amd64])
+Inst dbus-bin (1.14.10-4ubuntu4.1 Ubuntu:24.04/noble-updates [amd64])
+Inst dbus-session-bus-common (1.14.10-4ubuntu4.1 Ubuntu:24.04/noble-updates [all])
+Inst dbus-daemon (1.14.10-4ubuntu4.1 Ubuntu:24.04/noble-updates [amd64])
+Inst dbus-system-bus-common (1.14.10-4ubuntu4.1 Ubuntu:24.04/noble-updates [all])
+Inst dbus (1.14.10-4ubuntu4.1 Ubuntu:24.04/noble-updates [amd64])
+Inst libpam-systemd (255.4-1ubuntu8.17 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Inst dbus-user-session (1.14.10-4ubuntu4.1 Ubuntu:24.04/noble-updates [amd64])
+Inst dhcpcd-base (1:10.0.6-1ubuntu3.2 Ubuntu:24.04/noble-updates [amd64])
+Inst distro-info-data (0.72-0ubuntu0.24.04.1 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [all])
+Inst dmsetup (2:1.02.185-3ubuntu3.2 Ubuntu:24.04/noble-updates [amd64])
+Inst libglib2.0-0t64 (2.80.0-6ubuntu3.9 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Inst gir1.2-glib-2.0 (2.80.0-6ubuntu3.9 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Inst libgirepository-1.0-1 (1.80.1-1 Ubuntu:24.04/noble [amd64])
+Inst gir1.2-girepository-2.0 (1.80.1-1 Ubuntu:24.04/noble [amd64])
+Inst iso-codes (4.16.0-1 Ubuntu:24.04/noble [all])
+Inst kmod (31+20240202-2ubuntu7.2 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Inst libglib2.0-data (2.80.0-6ubuntu3.9 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [all])
+Inst libicu74 (74.2-1ubuntu3.1 Ubuntu:24.04/noble-updates [amd64])
+Inst libnss-systemd (255.4-1ubuntu8.17 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Inst libxml2 (2.9.14+dfsg-1.3ubuntu3.9 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Inst lsb-release (12.0-2 Ubuntu:24.04/noble [all])
+Inst python3-dbus (1.3.2-5build3 Ubuntu:24.04/noble [amd64])
+Inst python3-gi (3.48.2-1 Ubuntu:24.04/noble [amd64])
+Inst networkd-dispatcher (2.2.4-1 Ubuntu:24.04/noble [all])
+Inst python-apt-common (2.7.7ubuntu5.3 Ubuntu:24.04/noble-updates [all])
+Inst python3-apt (2.7.7ubuntu5.3 Ubuntu:24.04/noble-updates [amd64])
+Inst shared-mime-info (2.4-4 Ubuntu:24.04/noble [amd64])
+Inst udev (255.4-1ubuntu8.17 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Inst systemd-hwe-hwdb (255.1.7 Ubuntu:24.04/noble-updates [all])
+Inst systemd-resolved (255.4-1ubuntu8.17 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Inst systemd-timesyncd (255.4-1ubuntu8.17 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Inst ucf (3.0043+nmu1 Ubuntu:24.04/noble [all])
+Inst xdg-user-dirs (0.18-1build1 Ubuntu:24.04/noble [amd64])
+Inst cpio (2.15+dfsg-1ubuntu2.1 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Inst gettext-base (0.21-14ubuntu2 Ubuntu:24.04/noble [amd64])
+Inst libevdev2 (1.13.1+dfsg-1build1 Ubuntu:24.04/noble [amd64])
+Inst libfuse3-3 (3.14.0-5build1 Ubuntu:24.04/noble [amd64])
+Inst libpng16-16t64 (1.6.43-5ubuntu0.6 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Inst libusb-1.0-0 (2:1.0.27-1 Ubuntu:24.04/noble [amd64])
+Inst busybox-initramfs (1:1.36.1-6ubuntu3.1 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Inst dracut-install (060+5-1ubuntu3.4 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Inst firmware-sof-signed (2023.12.1-1ubuntu1.11 Ubuntu:24.04/noble-updates [all])
+Inst libefivar1t64 (38-3.1build1 Ubuntu:24.04/noble [amd64])
+Inst libefiboot1t64 (38-3.1build1 Ubuntu:24.04/noble [amd64])
+Inst libbrotli1 (1.1.0-2build2 Ubuntu:24.04/noble [amd64])
+Inst libfreetype6 (2.13.2+dfsg-1ubuntu0.1 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Inst grub-common (2.12-1ubuntu7.3 Ubuntu:24.04/noble-updates [amd64])
+Inst grub2-common (2.12-1ubuntu7.3 Ubuntu:24.04/noble-updates [amd64])
+Inst grub-pc-bin (2.12-1ubuntu7.3 Ubuntu:24.04/noble-updates [amd64])
+Inst grub-pc (2.12-1ubuntu7.3 Ubuntu:24.04/noble-updates [amd64]) []
+Inst grub-gfxpayload-lists (0.7build2 Ubuntu:24.04/noble [amd64])
+Inst initramfs-tools-bin (0.142ubuntu25.8 Ubuntu:24.04/noble-updates [amd64])
+Inst libklibc (2.0.13-4ubuntu0.2 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Inst klibc-utils (2.0.13-4ubuntu0.2 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Inst initramfs-tools-core (0.142ubuntu25.8 Ubuntu:24.04/noble-updates [all])
+Inst linux-base (4.5ubuntu9+24.04.2 Ubuntu:24.04/noble-updates [all])
+Inst initramfs-tools (0.142ubuntu25.8 Ubuntu:24.04/noble-updates [all])
+Inst iucode-tool (2.3.1-3build1 Ubuntu:24.04/noble [amd64])
+Inst libdbus-glib-1-2 (0.112-3build2 Ubuntu:24.04/noble [amd64])
+Inst libduktape207 (2.7.0+tests-0ubuntu3 Ubuntu:24.04/noble [amd64])
+Inst libgudev-1.0-0 (1:238-5ubuntu1 Ubuntu:24.04/noble [amd64])
+Inst libplist-2.0-4 (2.3.0-1~exp2build2 Ubuntu:24.04/noble [amd64])
+Inst libusbmuxd6 (2.0.2-4build3 Ubuntu:24.04/noble [amd64])
+Inst libimobiledevice6 (1.3.0-8.1build3 Ubuntu:24.04/noble [amd64])
+Inst libpolkit-gobject-1-0 (124-2ubuntu1.24.04.4 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Inst libpolkit-agent-1-0 (124-2ubuntu1.24.04.4 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Inst libupower-glib3 (1.90.3-1 Ubuntu:24.04/noble [amd64])
+Inst linux-firmware-amd-graphics (20240318.git3b128b60-0ubuntu3.3 Ubuntu:24.04/noble-updates [all])
+Inst linux-firmware-amd-misc (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Inst linux-firmware-broadcom-wireless (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Inst linux-firmware-intel-graphics (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Inst linux-firmware-intel-misc (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Inst linux-firmware-intel-wireless (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Inst linux-firmware-marvell-prestera (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Inst linux-firmware-marvell-wireless (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Inst linux-firmware-mediatek (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Inst linux-firmware-mellanox-spectrum (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Inst linux-firmware-misc (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Inst linux-firmware-netronome (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Inst linux-firmware-nvidia-graphics (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Inst linux-firmware-qlogic (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Inst linux-firmware-qualcomm-graphics (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Inst linux-firmware-qualcomm-misc (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Inst linux-firmware-qualcomm-wireless (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Inst linux-firmware-realtek (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Inst linux-firmware (20240318.git3b128b60.0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Inst linux-modules-6.8.0-142-generic (6.8.0-142.142 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Inst linux-image-6.8.0-142-generic (6.8.0-142.142 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Inst wireless-regdb (2026.05.30-0ubuntu1~24.04.1 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [all])
+Inst linux-modules-extra-6.8.0-142-generic (6.8.0-142.142 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Inst intel-microcode (3.20260210.0ubuntu0.24.04.1 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Inst amd64-microcode (3.20251202.1ubuntu0.24.04.1 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Inst linux-image-generic (6.8.0-142.142 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Inst os-prober (1.81ubuntu4 Ubuntu:24.04/noble [amd64])
+Inst xml-core (0.19 Ubuntu:24.04/noble [all])
+Inst polkitd (124-2ubuntu1.24.04.4 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Inst thermald (2.5.6-2ubuntu0.24.04.5 Ubuntu:24.04/noble-updates [amd64])
+Inst upower (1.90.3-1 Ubuntu:24.04/noble [amd64])
+Inst usbmuxd (1.1.1-5~exp3ubuntu2.1 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Inst zstd (1.5.5+dfsg2-2build1.1 Ubuntu:24.04/noble-updates [amd64])
+Conf media-types (10.1.0 Ubuntu:24.04/noble [all])
+Conf netbase (6.4 Ubuntu:24.04/noble [all])
+Conf tzdata (2026c-0ubuntu0.24.04.1 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [all])
+Conf readline-common (8.2-4build1 Ubuntu:24.04/noble [all])
+Conf libreadline8t64 (8.2-4build1 Ubuntu:24.04/noble [amd64])
+Conf libsqlite3-0 (3.45.1-1ubuntu2.8 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Conf libpython3.12-stdlib (3.12.3-1ubuntu0.17 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Conf python3.12 (3.12.3-1ubuntu0.17 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Conf libpython3-stdlib (3.12.3-0ubuntu2.1 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Conf python3 (3.12.3-0ubuntu2.1 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Conf systemd-sysv (255.4-1ubuntu8.17 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Conf sgml-base (1.31 Ubuntu:24.04/noble [all])
+Conf openssl (3.0.13-0ubuntu3.16 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Conf ca-certificates (20260601~24.04.1 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [all])
+Conf libdbus-1-3 (1.14.10-4ubuntu4.1 Ubuntu:24.04/noble-updates [amd64])
+Conf dbus-bin (1.14.10-4ubuntu4.1 Ubuntu:24.04/noble-updates [amd64])
+Conf dbus-session-bus-common (1.14.10-4ubuntu4.1 Ubuntu:24.04/noble-updates [all])
+Conf dbus-daemon (1.14.10-4ubuntu4.1 Ubuntu:24.04/noble-updates [amd64])
+Conf dbus-system-bus-common (1.14.10-4ubuntu4.1 Ubuntu:24.04/noble-updates [all])
+Conf dbus (1.14.10-4ubuntu4.1 Ubuntu:24.04/noble-updates [amd64])
+Conf libpam-systemd (255.4-1ubuntu8.17 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Conf dbus-user-session (1.14.10-4ubuntu4.1 Ubuntu:24.04/noble-updates [amd64])
+Conf dhcpcd-base (1:10.0.6-1ubuntu3.2 Ubuntu:24.04/noble-updates [amd64])
+Conf distro-info-data (0.72-0ubuntu0.24.04.1 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [all])
+Conf dmsetup (2:1.02.185-3ubuntu3.2 Ubuntu:24.04/noble-updates [amd64])
+Conf libglib2.0-0t64 (2.80.0-6ubuntu3.9 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Conf gir1.2-glib-2.0 (2.80.0-6ubuntu3.9 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Conf libgirepository-1.0-1 (1.80.1-1 Ubuntu:24.04/noble [amd64])
+Conf gir1.2-girepository-2.0 (1.80.1-1 Ubuntu:24.04/noble [amd64])
+Conf iso-codes (4.16.0-1 Ubuntu:24.04/noble [all])
+Conf kmod (31+20240202-2ubuntu7.2 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Conf libglib2.0-data (2.80.0-6ubuntu3.9 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [all])
+Conf libicu74 (74.2-1ubuntu3.1 Ubuntu:24.04/noble-updates [amd64])
+Conf libnss-systemd (255.4-1ubuntu8.17 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Conf libxml2 (2.9.14+dfsg-1.3ubuntu3.9 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Conf lsb-release (12.0-2 Ubuntu:24.04/noble [all])
+Conf python3-dbus (1.3.2-5build3 Ubuntu:24.04/noble [amd64])
+Conf python3-gi (3.48.2-1 Ubuntu:24.04/noble [amd64])
+Conf networkd-dispatcher (2.2.4-1 Ubuntu:24.04/noble [all])
+Conf python-apt-common (2.7.7ubuntu5.3 Ubuntu:24.04/noble-updates [all])
+Conf python3-apt (2.7.7ubuntu5.3 Ubuntu:24.04/noble-updates [amd64])
+Conf shared-mime-info (2.4-4 Ubuntu:24.04/noble [amd64])
+Conf udev (255.4-1ubuntu8.17 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Conf systemd-hwe-hwdb (255.1.7 Ubuntu:24.04/noble-updates [all])
+Conf systemd-resolved (255.4-1ubuntu8.17 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Conf systemd-timesyncd (255.4-1ubuntu8.17 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Conf ucf (3.0043+nmu1 Ubuntu:24.04/noble [all])
+Conf xdg-user-dirs (0.18-1build1 Ubuntu:24.04/noble [amd64])
+Conf cpio (2.15+dfsg-1ubuntu2.1 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Conf gettext-base (0.21-14ubuntu2 Ubuntu:24.04/noble [amd64])
+Conf libevdev2 (1.13.1+dfsg-1build1 Ubuntu:24.04/noble [amd64])
+Conf libfuse3-3 (3.14.0-5build1 Ubuntu:24.04/noble [amd64])
+Conf libpng16-16t64 (1.6.43-5ubuntu0.6 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Conf libusb-1.0-0 (2:1.0.27-1 Ubuntu:24.04/noble [amd64])
+Conf busybox-initramfs (1:1.36.1-6ubuntu3.1 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Conf dracut-install (060+5-1ubuntu3.4 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Conf firmware-sof-signed (2023.12.1-1ubuntu1.11 Ubuntu:24.04/noble-updates [all])
+Conf libefivar1t64 (38-3.1build1 Ubuntu:24.04/noble [amd64])
+Conf libefiboot1t64 (38-3.1build1 Ubuntu:24.04/noble [amd64])
+Conf libbrotli1 (1.1.0-2build2 Ubuntu:24.04/noble [amd64])
+Conf libfreetype6 (2.13.2+dfsg-1ubuntu0.1 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Conf grub-common (2.12-1ubuntu7.3 Ubuntu:24.04/noble-updates [amd64])
+Conf grub2-common (2.12-1ubuntu7.3 Ubuntu:24.04/noble-updates [amd64])
+Conf grub-pc-bin (2.12-1ubuntu7.3 Ubuntu:24.04/noble-updates [amd64])
+Conf grub-pc (2.12-1ubuntu7.3 Ubuntu:24.04/noble-updates [amd64])
+Conf grub-gfxpayload-lists (0.7build2 Ubuntu:24.04/noble [amd64])
+Conf initramfs-tools-bin (0.142ubuntu25.8 Ubuntu:24.04/noble-updates [amd64])
+Conf libklibc (2.0.13-4ubuntu0.2 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Conf klibc-utils (2.0.13-4ubuntu0.2 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Conf initramfs-tools-core (0.142ubuntu25.8 Ubuntu:24.04/noble-updates [all])
+Conf linux-base (4.5ubuntu9+24.04.2 Ubuntu:24.04/noble-updates [all])
+Conf initramfs-tools (0.142ubuntu25.8 Ubuntu:24.04/noble-updates [all])
+Conf iucode-tool (2.3.1-3build1 Ubuntu:24.04/noble [amd64])
+Conf libdbus-glib-1-2 (0.112-3build2 Ubuntu:24.04/noble [amd64])
+Conf libduktape207 (2.7.0+tests-0ubuntu3 Ubuntu:24.04/noble [amd64])
+Conf libgudev-1.0-0 (1:238-5ubuntu1 Ubuntu:24.04/noble [amd64])
+Conf libplist-2.0-4 (2.3.0-1~exp2build2 Ubuntu:24.04/noble [amd64])
+Conf libusbmuxd6 (2.0.2-4build3 Ubuntu:24.04/noble [amd64])
+Conf libimobiledevice6 (1.3.0-8.1build3 Ubuntu:24.04/noble [amd64])
+Conf libpolkit-gobject-1-0 (124-2ubuntu1.24.04.4 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Conf libpolkit-agent-1-0 (124-2ubuntu1.24.04.4 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Conf libupower-glib3 (1.90.3-1 Ubuntu:24.04/noble [amd64])
+Conf linux-firmware-amd-graphics (20240318.git3b128b60-0ubuntu3.3 Ubuntu:24.04/noble-updates [all])
+Conf linux-firmware-amd-misc (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Conf linux-firmware-broadcom-wireless (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Conf linux-firmware-intel-graphics (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Conf linux-firmware-intel-misc (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Conf linux-firmware-intel-wireless (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Conf linux-firmware-marvell-prestera (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Conf linux-firmware-marvell-wireless (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Conf linux-firmware-mediatek (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Conf linux-firmware-mellanox-spectrum (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Conf linux-firmware-misc (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Conf linux-firmware-netronome (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Conf linux-firmware-nvidia-graphics (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Conf linux-firmware-qlogic (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Conf linux-firmware-qualcomm-graphics (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Conf linux-firmware-qualcomm-misc (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Conf linux-firmware-qualcomm-wireless (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Conf linux-firmware-realtek (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Conf linux-firmware (20240318.git3b128b60.0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Conf linux-modules-6.8.0-142-generic (6.8.0-142.142 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Conf linux-image-6.8.0-142-generic (6.8.0-142.142 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Conf wireless-regdb (2026.05.30-0ubuntu1~24.04.1 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [all])
+Conf linux-modules-extra-6.8.0-142-generic (6.8.0-142.142 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Conf intel-microcode (3.20260210.0ubuntu0.24.04.1 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Conf amd64-microcode (3.20251202.1ubuntu0.24.04.1 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Conf linux-image-generic (6.8.0-142.142 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Conf os-prober (1.81ubuntu4 Ubuntu:24.04/noble [amd64])
+Conf xml-core (0.19 Ubuntu:24.04/noble [all])
+Conf polkitd (124-2ubuntu1.24.04.4 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Conf thermald (2.5.6-2ubuntu0.24.04.5 Ubuntu:24.04/noble-updates [amd64])
+Conf upower (1.90.3-1 Ubuntu:24.04/noble [amd64])
+Conf usbmuxd (1.1.1-5~exp3ubuntu2.1 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Conf zstd (1.5.5+dfsg2-2build1.1 Ubuntu:24.04/noble-updates [amd64])

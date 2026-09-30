@@ -1,0 +1,54 @@
+# Bağımlılıklar
+node_modules/
+
+# Derleme çıktıları
+/dist/
+/build/
+frontend/dist/
+*.tsbuildinfo
+
+# Gömülü arayüz çıktısı (README.txt depoda kalır; go:embed için gereklidir)
+backend/internal/webui/dist/*
+!backend/internal/webui/dist/README.txt
+
+# Go
+*.test
+*.out
+coverage.*
+
+# Yerel veritabanları ve geliştirme verileri
+.devdata/
+*.db
+*.db-wal
+*.db-shm
+*.db-journal
+*.sqlite
+*.sqlite3
+
+# Yerel ortam dosyaları (packaging/myserver.env bir şablondur, depoda kalır)
+.env
+.env.*
+!.env.example
+
+# Günlükler
+*.log
+npm-debug.log*
+
+# Düzenleyici ve işletim sistemi dosyaları
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Browser test output
+.playwright-mcp/
+
+# Kurulum sınamalarının geçici dosyaları
+tests/installer/.work/
+
+# Proje kökündeki tasarım görseli kopyası (asıl dosya docs/design içinde)
+/ChatGPT*.png

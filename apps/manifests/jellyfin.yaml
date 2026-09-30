@@ -1,0 +1,58 @@
+schema: 1
+name: Jellyfin
+slug: jellyfin
+description: Medya Sunucusu
+long_description: |
+  Film, dizi, müzik ve fotoğraf arşivinizi düzenleyip tarayıcı, telefon,
+  televizyon ve oyun konsolu gibi cihazlarda izlemenizi sağlayan özgür
+  yazılım medya sunucusu.
+category: media
+icon: jellyfin.svg
+version: latest
+website: https://jellyfin.org
+architectures: [amd64, arm64]
+notes: |
+  Kurulumdan sonra "Aç" ile web arayüzüne gidin ve ilk kurulum sihirbazını
+  tamamlayın. Medya klasörünüz konteynerin içinde /media olarak görünür;
+  kitaplık eklerken bu yolu seçin.
+  Sunucuda Intel/AMD grafik birimi varsa (/dev/dri/renderD128) donanım
+  hızlandırmalı kod dönüştürme için konteynere otomatik olarak bağlanır;
+  Jellyfin içinde Oynatma > Kod Dönüştürme bölümünden etkinleştirebilirsiniz.
+docker:
+  image: jellyfin/jellyfin:latest
+  restart: unless-stopped
+  devices:
+    - host: /dev/dri/renderD128
+      optional: true
+env:
+  - name: TZ
+    label: Saat dilimi
+    default: Europe/Istanbul
+ports:
+  - key: web
+    host: 8096
+    container: 8096
+    protocol: tcp
+    label: Web arayüzü
+    web_ui:
+      scheme: http
+      path: /
+  - key: discovery
+    host: 7359
+    container: 7359
+    protocol: udp
+    label: Yerel ağda otomatik bulunma
+volumes:
+  - source: config
+    target: /config
+    label: Yapılandırma
+  - source: cache
+    target: /cache
+    label: Önbellek
+  - type: bind
+    key: media
+    source: /media
+    target: /media
+    label: Medya klasörü
+    description: Film, dizi ve müziklerinizin bulunduğu klasör.
+    required: true

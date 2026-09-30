@@ -1,0 +1,9 @@
+# MyServer - /etc/sudoers.d/myserver
+# Bu dosya kurulum betiği tarafından "visudo -cf" ile doğrulanarak kurulur.
+# Elle düzenlemeyin; düzenlemeniz gerekirse "visudo -f /etc/sudoers.d/myserver"
+# kullanın.
+#
+# Tek kural: "myserver" kullanıcısı, yalnızca root yardımcısını root olarak ve
+# parolasız çalıştırabilir. Yardımcı, sabit bir eylem listesi dışında hiçbir
+# şey yapmaz ve her bağımsız değişkeni kendisi doğrular.
+myserver ALL=(root) NOPASSWD: /usr/local/libexec/myserver-helper

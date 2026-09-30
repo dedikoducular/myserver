@@ -1,0 +1,69 @@
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  firmware-sof-signed linux-firmware-amd-graphics linux-firmware-amd-misc
+  linux-firmware-broadcom-wireless linux-firmware-intel-graphics
+  linux-firmware-intel-misc linux-firmware-intel-wireless
+  linux-firmware-marvell-prestera linux-firmware-marvell-wireless
+  linux-firmware-mediatek linux-firmware-mellanox-spectrum linux-firmware-misc
+  linux-firmware-netronome linux-firmware-nvidia-graphics
+  linux-firmware-qlogic linux-firmware-qualcomm-graphics
+  linux-firmware-qualcomm-misc linux-firmware-qualcomm-wireless
+  linux-firmware-realtek
+The following NEW packages will be installed:
+  firmware-sof-signed linux-base linux-firmware linux-firmware-amd-graphics
+  linux-firmware-amd-misc linux-firmware-broadcom-wireless
+  linux-firmware-intel-graphics linux-firmware-intel-misc
+  linux-firmware-intel-wireless linux-firmware-marvell-prestera
+  linux-firmware-marvell-wireless linux-firmware-mediatek
+  linux-firmware-mellanox-spectrum linux-firmware-misc
+  linux-firmware-netronome linux-firmware-nvidia-graphics
+  linux-firmware-qlogic linux-firmware-qualcomm-graphics
+  linux-firmware-qualcomm-misc linux-firmware-qualcomm-wireless
+  linux-firmware-realtek linux-libc-dev
+0 upgraded, 22 newly installed, 0 to remove and 4 not upgraded.
+Inst firmware-sof-signed (2023.12.1-1ubuntu1.11 Ubuntu:24.04/noble-updates [all])
+Inst linux-base (4.5ubuntu9+24.04.2 Ubuntu:24.04/noble-updates [all])
+Inst linux-firmware-amd-graphics (20240318.git3b128b60-0ubuntu3.3 Ubuntu:24.04/noble-updates [all])
+Inst linux-firmware-amd-misc (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Inst linux-firmware-broadcom-wireless (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Inst linux-firmware-intel-graphics (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Inst linux-firmware-intel-misc (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Inst linux-firmware-intel-wireless (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Inst linux-firmware-marvell-prestera (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Inst linux-firmware-marvell-wireless (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Inst linux-firmware-mediatek (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Inst linux-firmware-mellanox-spectrum (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Inst linux-firmware-misc (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Inst linux-firmware-netronome (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Inst linux-firmware-nvidia-graphics (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Inst linux-firmware-qlogic (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Inst linux-firmware-qualcomm-graphics (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Inst linux-firmware-qualcomm-misc (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Inst linux-firmware-qualcomm-wireless (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Inst linux-firmware-realtek (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Inst linux-firmware (20240318.git3b128b60.0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Inst linux-libc-dev (6.8.0-142.142 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])
+Conf firmware-sof-signed (2023.12.1-1ubuntu1.11 Ubuntu:24.04/noble-updates [all])
+Conf linux-base (4.5ubuntu9+24.04.2 Ubuntu:24.04/noble-updates [all])
+Conf linux-firmware-amd-graphics (20240318.git3b128b60-0ubuntu3.3 Ubuntu:24.04/noble-updates [all])
+Conf linux-firmware-amd-misc (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Conf linux-firmware-broadcom-wireless (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Conf linux-firmware-intel-graphics (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Conf linux-firmware-intel-misc (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Conf linux-firmware-intel-wireless (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Conf linux-firmware-marvell-prestera (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Conf linux-firmware-marvell-wireless (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Conf linux-firmware-mediatek (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Conf linux-firmware-mellanox-spectrum (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Conf linux-firmware-misc (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Conf linux-firmware-netronome (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Conf linux-firmware-nvidia-graphics (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Conf linux-firmware-qlogic (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Conf linux-firmware-qualcomm-graphics (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Conf linux-firmware-qualcomm-misc (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Conf linux-firmware-qualcomm-wireless (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Conf linux-firmware-realtek (20240318.git3b128b60-0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Conf linux-firmware (20240318.git3b128b60.0ubuntu3.1 Ubuntu:24.04/noble-updates [all])
+Conf linux-libc-dev (6.8.0-142.142 Ubuntu:24.04/noble-updates, Ubuntu:24.04/noble-security [amd64])

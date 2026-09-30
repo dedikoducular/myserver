@@ -1,0 +1,142 @@
+@import 'tailwindcss';
+
+/* Design tokens. Components must use these (through the Tailwind color
+   names below), never literal colors, so both themes stay consistent. */
+:root {
+  color-scheme: dark;
+  --ms-bg: #070b14;
+  --ms-surface: #0a101d;
+  --ms-card: #0e1626;
+  --ms-raised: #141e33;
+  --ms-line: #1b2740;
+  --ms-line-strong: #2b3a5a;
+  --ms-fg: #e7ecf6;
+  --ms-muted: #93a0b8;
+  --ms-faint: #5f6d88;
+  --ms-accent: #3b82f6;
+  --ms-accent-strong: #2563eb;
+  --ms-accent-fg: #ffffff;
+  --ms-cyan: #22d3ee;
+  --ms-success: #22c55e;
+  --ms-warning: #f59e0b;
+  --ms-danger: #ef4444;
+  --ms-purple: #a855f7;
+  --ms-shadow: 0 10px 30px -12px rgb(0 0 0 / 0.6);
+  --ms-glow: 0 0 0 1px rgb(59 130 246 / 0.12), 0 8px 28px -14px rgb(59 130 246 / 0.35);
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+  --ms-bg: #f3f5fa;
+  --ms-surface: #ffffff;
+  --ms-card: #ffffff;
+  --ms-raised: #eef2f9;
+  --ms-line: #dfe5f0;
+  --ms-line-strong: #c4cee0;
+  --ms-fg: #101828;
+  --ms-muted: #55627a;
+  --ms-faint: #8893a8;
+  --ms-accent: #2563eb;
+  --ms-accent-strong: #1d4ed8;
+  --ms-cyan: #0891b2;
+  --ms-success: #16a34a;
+  --ms-warning: #d97706;
+  --ms-danger: #dc2626;
+  --ms-purple: #9333ea;
+  --ms-shadow: 0 10px 30px -14px rgb(16 24 40 / 0.18);
+  --ms-glow: 0 0 0 1px rgb(37 99 235 / 0.1), 0 8px 24px -14px rgb(37 99 235 / 0.25);
+}
+
+@theme inline {
+  --color-bg: var(--ms-bg);
+  --color-surface: var(--ms-surface);
+  --color-card: var(--ms-card);
+  --color-raised: var(--ms-raised);
+  --color-line: var(--ms-line);
+  --color-line-strong: var(--ms-line-strong);
+  --color-fg: var(--ms-fg);
+  --color-muted: var(--ms-muted);
+  --color-faint: var(--ms-faint);
+  --color-accent: var(--ms-accent);
+  --color-accent-strong: var(--ms-accent-strong);
+  --color-accent-fg: var(--ms-accent-fg);
+  --color-cyan: var(--ms-cyan);
+  --color-success: var(--ms-success);
+  --color-warning: var(--ms-warning);
+  --color-danger: var(--ms-danger);
+  --color-purple: var(--ms-purple);
+  --shadow-card: var(--ms-shadow);
+  --shadow-glow: var(--ms-glow);
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: ui-monospace, 'JetBrains Mono', 'Cascadia Code', Menlo, Consolas, monospace;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--ms-bg);
+  color: var(--ms-fg);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: 'tnum' 1;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--ms-line-strong) transparent;
+}
+
+:focus-visible {
+  outline: 2px solid var(--ms-accent);
+  outline-offset: 2px;
+}
+
+button,
+[role='button'] {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+@keyframes ms-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes ms-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.ms-fade-in {
+  animation: ms-fade-in 0.16s ease-out;
+}
+
+.ms-spin {
+  animation: ms-spin 0.8s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

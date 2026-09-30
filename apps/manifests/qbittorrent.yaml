@@ -1,0 +1,74 @@
+schema: 1
+name: qBittorrent
+slug: qbittorrent
+description: Torrent İstemcisi
+long_description: |
+  Web arayüzünden yönetilen BitTorrent istemcisi (LinuxServer.io görüntüsü).
+category: download
+icon: qbittorrent.svg
+version: latest
+website: https://www.qbittorrent.org
+architectures: [amd64, arm64]
+notes: |
+  Kullanıcı adı "admin"dir. Parola ilk açılışta rastgele üretilir ve
+  yalnızca uygulama loglarına yazılır: kurulumdan sonra menüden "Loglar"ı
+  açıp geçici parolayı alın, giriş yaptıktan sonra Seçenekler > Web Arayüzü
+  bölümünden kalıcı bir parola belirleyin.
+  İndirilen dosyalar konteynerin içinde /downloads klasörüne kaydedilir.
+  "Kullanıcı kimliği" ve "Grup kimliği", indirme klasörünün sahibi olan
+  Linux kullanıcısının kimlikleri olmalıdır (çoğu kurulumda 1000).
+  Torrent portunun TCP ve UDP değerlerini aynı tutun.
+docker:
+  image: lscr.io/linuxserver/qbittorrent:latest
+  restart: unless-stopped
+env:
+  - name: PUID
+    label: Kullanıcı kimliği (PUID)
+    default: "1000"
+    required: true
+  - name: PGID
+    label: Grup kimliği (PGID)
+    default: "1000"
+    required: true
+  - name: TZ
+    label: Saat dilimi
+    default: Europe/Istanbul
+  - name: WEBUI_PORT
+    default: "${port:web}"
+    fixed: true
+  - name: TORRENTING_PORT
+    default: "${port:torrent-tcp}"
+    fixed: true
+ports:
+  - key: web
+    host: 8090
+    container: 8090
+    protocol: tcp
+    label: Web arayüzü
+    same_as_host: true
+    web_ui:
+      scheme: http
+      path: /
+  - key: torrent-tcp
+    host: 6881
+    container: 6881
+    protocol: tcp
+    label: Torrent (TCP)
+    same_as_host: true
+  - key: torrent-udp
+    host: 6881
+    container: 6881
+    protocol: udp
+    label: Torrent (UDP)
+    same_as_host: true
+volumes:
+  - source: config
+    target: /config
+    label: Yapılandırma
+  - type: bind
+    key: downloads
+    source: /data/downloads
+    target: /downloads
+    label: İndirme klasörü
+    description: İndirilen dosyaların kaydedileceği klasör.
+    required: true

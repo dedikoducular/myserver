@@ -1,0 +1,8 @@
+Waiting for cache lock: Could not get lock /var/lib/dpkg/lock-frontend. It is held by process 2841 (unattended-upgr)... 0sWaiting for cache lock: Could not get lock /var/lib/dpkg/lock-frontend. It is held by process 2841 (unattended-upgr)... 1sReading package lists...
+Building dependency tree...
+Reading state information...
+The following packages will be upgraded:
+  libc6
+1 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+Need to get 3263 kB of archives.
+E: You don't have enough free space in /var/cache/apt/archives/.

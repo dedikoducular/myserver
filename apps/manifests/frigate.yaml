@@ -1,0 +1,75 @@
+schema: 1
+name: Frigate
+slug: frigate
+description: NVR - Kamera
+long_description: |
+  IP kameralar için yerel çalışan, gerçek zamanlı nesne algılama yapabilen
+  ağ video kaydedicisi (NVR).
+category: security
+icon: frigate.svg
+version: stable
+website: https://frigate.video
+architectures: [amd64, arm64]
+notes: |
+  İlk açılışta yönetici (admin) parolası rastgele üretilir ve yalnızca
+  uygulama loglarına yazılır: kurulumdan sonra menüden "Loglar"ı açıp
+  parolayı alın.
+  Arayüz kendinden imzalı bir sertifika ile HTTPS üzerinden (8971) açılır.
+  Kameralarınızı arayüzdeki yapılandırma düzenleyicisinden ekleyin. Kayıtlar
+  seçtiğiniz klasöre yazılır; yeterli boş alanı olan bir disk seçin.
+  Sunucuda Intel/AMD grafik birimi varsa (/dev/dri/renderD128) donanım
+  hızlandırma için konteynere otomatik bağlanır. Çok sayıda veya yüksek
+  çözünürlüklü kamera için paylaşımlı bellek (512 MB) yetersiz kalabilir.
+docker:
+  image: ghcr.io/blakeblackshear/frigate:stable
+  restart: unless-stopped
+  shm_size: 512m
+  tmpfs:
+    - target: /tmp/cache
+      size: 1g
+  devices:
+    - host: /dev/dri/renderD128
+      optional: true
+env:
+  - name: FRIGATE_RTSP_PASSWORD
+    label: RTSP parolası
+    description: Yapılandırmada {FRIGATE_RTSP_PASSWORD} olarak kullanabileceğiniz kamera parolası. Boş bırakılabilir.
+    secret: true
+  - name: TZ
+    label: Saat dilimi
+    default: Europe/Istanbul
+ports:
+  - key: web
+    host: 8971
+    container: 8971
+    protocol: tcp
+    label: Web arayüzü (HTTPS)
+    web_ui:
+      scheme: https
+      path: /
+  - key: rtsp
+    host: 8554
+    container: 8554
+    protocol: tcp
+    label: RTSP yeniden yayın
+  - key: webrtc-tcp
+    host: 8555
+    container: 8555
+    protocol: tcp
+    label: WebRTC (TCP)
+  - key: webrtc-udp
+    host: 8555
+    container: 8555
+    protocol: udp
+    label: WebRTC (UDP)
+volumes:
+  - source: config
+    target: /config
+    label: Yapılandırma
+  - type: bind
+    key: recordings
+    source: /media/frigate
+    target: /media/frigate
+    label: Kayıt klasörü
+    description: Kamera kayıtlarının ve anlık görüntülerin saklanacağı klasör.
+    required: true

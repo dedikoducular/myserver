@@ -1,0 +1,75 @@
+schema: 1
+name: Pi-hole
+slug: pihole
+description: Ağ Geneli Reklam Engelleyici
+long_description: |
+  Ağınızdaki tüm cihazlar için reklam ve izleyici alan adlarını engelleyen
+  DNS sunucusu.
+category: network
+icon: pihole.svg
+version: latest
+website: https://pi-hole.net
+architectures: [amd64, arm64]
+notes: |
+  Web arayüzüne kurulumda belirlediğiniz parola ile giriş yapın.
+  53 numaralı port Ubuntu'da systemd-resolved tarafından kullanılıyor
+  olabilir. Kurulum bu durumda portun dolu olduğunu bildirir; devam etmek
+  için sunucuda /etc/systemd/resolved.conf dosyasında DNSStubListener=no
+  ayarını yapıp systemd-resolved servisini yeniden başlatın.
+  Cihazlarınızın bu sunucuyu kullanması için modeminizde DNS adresi olarak
+  sunucunun IP adresini girin.
+  Pi-hole'u yalnızca DNS için kullanacaksanız "DHCP sunucusu desteği"
+  seçeneğini kapalı bırakın. DHCP sunucusunu kullanacaksanız seçeneği açın;
+  ayrıca uygulama köprü ağında çalıştığı için modeminizde veya ağınızda bir
+  DHCP aktarıcısı (relay) gerekir.
+docker:
+  image: pihole/pihole:latest
+  restart: unless-stopped
+options:
+  - key: dhcp
+    label: DHCP sunucusu desteği (NET_ADMIN)
+    description: Yalnızca Pi-hole'un DHCP sunucusunu kullanacaksanız açın. Konteynere ağ yönetimi yetkisi (NET_ADMIN) verir; DNS ve reklam engelleme için gerekli değildir.
+    default: false
+    cap_add: [NET_ADMIN]
+env:
+  - name: FTLCONF_webserver_api_password
+    label: Web arayüzü parolası
+    description: Pi-hole yönetim arayüzüne girişte kullanılacak parola.
+    required: true
+    secret: true
+  - name: TZ
+    label: Saat dilimi
+    default: Europe/Istanbul
+    required: true
+  - name: FTLCONF_dns_listeningMode
+    default: all
+    fixed: true
+ports:
+  - key: dns-tcp
+    host: 53
+    container: 53
+    protocol: tcp
+    label: DNS (TCP)
+  - key: dns-udp
+    host: 53
+    container: 53
+    protocol: udp
+    label: DNS (UDP)
+  - key: dhcp
+    host: 67
+    container: 67
+    protocol: udp
+    label: DHCP
+    option: dhcp
+  - key: web
+    host: 8085
+    container: 80
+    protocol: tcp
+    label: Web arayüzü
+    web_ui:
+      scheme: http
+      path: /admin/
+volumes:
+  - source: etc-pihole
+    target: /etc/pihole
+    label: Pi-hole verileri

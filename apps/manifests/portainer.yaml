@@ -1,0 +1,45 @@
+schema: 1
+name: Portainer
+slug: portainer
+description: Docker Yönetimi
+long_description: |
+  Konteynerleri, görüntüleri, ağları ve birimleri web arayüzünden yönetmenizi
+  sağlayan Docker yönetim aracı (Community Edition).
+category: management
+icon: portainer.svg
+version: lts
+website: https://www.portainer.io
+architectures: [amd64, arm64]
+notes: |
+  Kurulumdan sonraki birkaç dakika içinde "Aç" ile gidip yönetici hesabını
+  oluşturun; süre dolarsa Portainer güvenlik nedeniyle kendini kilitler ve
+  uygulamayı yeniden başlatmanız gerekir.
+  Arayüz kendinden imzalı bir sertifika ile HTTPS üzerinden açılır;
+  tarayıcınızın sertifika uyarısını onaylamanız gerekir.
+  Portainer'da MyServer'ın kurduğu konteynerleri silmeyin veya yeniden
+  oluşturmayın; bunları bu panelden yönetin.
+docker:
+  image: portainer/portainer-ce:lts
+  restart: unless-stopped
+ports:
+  - key: web
+    host: 9443
+    container: 9443
+    protocol: tcp
+    label: Web arayüzü (HTTPS)
+    web_ui:
+      scheme: https
+      path: /
+  - key: edge
+    host: 8000
+    container: 8000
+    protocol: tcp
+    label: Edge aracı tüneli
+volumes:
+  - source: data
+    target: /data
+    label: Portainer verileri
+  - type: system
+    source: /var/run/docker.sock
+    target: /var/run/docker.sock
+    label: Docker soketi
