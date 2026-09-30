@@ -1,4 +1,4 @@
-import { useMemo, useState, type ReactNode } from 'react'
+import { useMemo, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import {
   Activity,
@@ -35,6 +35,7 @@ import {
   type Tone,
 } from '@/components/ui'
 import { useQuery } from '@/hooks/useApi'
+import { usePersistentState } from '@/hooks/usePersistentState'
 import { cx, formatBytes, formatDateTime, formatDuration, formatPercent, formatRate, formatTemperature, formatTime } from '@/lib/format'
 import { useAuth } from '@/stores/auth'
 import { useSystemInfo, useSystemMetrics } from './store'
@@ -290,8 +291,10 @@ const RANGES: Array<{ id: HistoryRange; seconds: number; label: () => string }> 
   { id: '1h', seconds: 3600, label: () => t('range1h') },
 ]
 
+const RANGE_IDS = RANGES.map((r) => r.id)
+
 export function TrafficWidget() {
-  const [range, setRange] = useState<HistoryRange>('1h')
+  const [range, setRange] = usePersistentState<HistoryRange>('traffic.range', '1h', RANGE_IDS)
   const { netLive, snapshot } = useSystemMetrics()
   const { data, error, loading, reload } = useQuery<NetworkHistory>('/system/network/history', { query: { range } })
 

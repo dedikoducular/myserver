@@ -44,6 +44,7 @@ import { LogsModal } from './LogsModal'
 import { InspectModal } from './InspectModal'
 import { TerminalModal } from './TerminalModal'
 import type { Container, ContainerStats } from './types'
+import { usePersistentState } from '@/hooks/usePersistentState'
 
 type Verb = 'start' | 'stop' | 'restart' | 'kill'
 type Filter = 'all' | 'running' | 'stopped'
@@ -254,7 +255,7 @@ export function ContainersTab({ live }: { live: DockerLive }) {
   const now = useNow()
 
   const [search, setSearch] = useState('')
-  const [filter, setFilter] = useState<Filter>('all')
+  const [filter, setFilter] = usePersistentState<Filter>('docker.filter', 'all', ['all', 'running', 'stopped'])
   const [busy, setBusy] = useState<Record<string, Verb | 'remove'>>({})
   const [confirm, setConfirm] = useState<{ c: Container; verb: Exclude<Verb, 'start'> } | null>(null)
   const [removing, setRemoving] = useState<Container | null>(null)

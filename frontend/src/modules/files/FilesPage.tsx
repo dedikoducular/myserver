@@ -50,6 +50,7 @@ import { t } from './strings'
 import type { FileEntry, Job, ListResponse, RootInfo, RootsResponse, SortKey, SortOrder } from './types'
 import { UploadsPanel, useUploads } from './uploads'
 import { crumbs, entryIcon, iconClass, isArchive, isDirLike, previewKind, startDownload, type PreviewKind } from './util'
+import { usePersistentState } from '@/hooks/usePersistentState'
 
 const PAGE_STEP = 1000
 const PAGE_MAX = 5000
@@ -393,8 +394,8 @@ export default function FilesPage() {
   const path = params.get('path')
 
   const [view, setView] = useState<View>(readView)
-  const [sort, setSort] = useState<SortKey>('name')
-  const [order, setOrder] = useState<SortOrder>('asc')
+  const [sort, setSort] = usePersistentState<SortKey>('files.sort', 'name', ['name', 'size', 'mode', 'modified'])
+  const [order, setOrder] = usePersistentState<SortOrder>('files.order', 'asc', ['asc', 'desc'])
   const [limit, setLimit] = useState(PAGE_STEP)
   const [selected, setSelected] = useState<ReadonlySet<string>>(new Set())
   const [dialog, setDialog] = useState<Dialog | null>(null)

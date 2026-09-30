@@ -21,6 +21,7 @@ import { LogsModal } from './LogsModal'
 import { t } from './strings'
 import type { Service, ServiceList } from './types'
 import { bootLabel, stateLabel, stateTone, uptimeSeconds } from './util'
+import { usePersistentState } from '@/hooks/usePersistentState'
 
 type Filter = 'all' | 'running' | 'stopped' | 'failed' | 'disabled'
 
@@ -109,7 +110,7 @@ export default function ServicesPage() {
   // Service state changes slowly and the server caches the list.
   const list = useQuery<ServiceList>('/services', { refetchInterval: 15000 })
   const [search, setSearch] = useState('')
-  const [filter, setFilter] = useState<Filter>('all')
+  const [filter, setFilter] = usePersistentState<Filter>('services.filter', 'all', ['all', 'running', 'stopped', 'failed', 'disabled'])
   const [limit, setLimit] = useState(PAGE)
   const [logsFor, setLogsFor] = useState<Service | null>(null)
   const control = useServiceControl(() => void list.reload())
