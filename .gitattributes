@@ -1,0 +1,4 @@
+# Linux üzerinde çalışan dosyalar her zaman LF satır sonuyla tutulur.
+* text=auto eol=lf
+*.png binary
+*.ico binary
