@@ -34,9 +34,20 @@ const IMAGE = new Set(['png', 'jpg', 'jpeg', 'gif', 'webp', 'bmp', 'avif', 'ico'
 const VIDEO = new Set(['mp4', 'm4v', 'webm'])
 const AUDIO = new Set(['mp3', 'wav', 'ogg', 'flac', 'm4a', 'opus'])
 const TEXT = new Set([
-  'txt', 'log', 'md', 'csv', 'json', 'xml', 'yaml', 'yml', 'toml', 'ini', 'conf', 'cfg', 'env', 'html', 'htm', 'css',
-  'js', 'ts', 'tsx', 'jsx', 'sh', 'py', 'go', 'c', 'h', 'cpp', 'java', 'rs', 'php', 'sql', 'service', 'list', 'svg',
+  'txt', 'log', 'md', 'markdown', 'rst', 'csv', 'tsv', 'json', 'jsonc', 'json5', 'jsonl', 'ndjson', 'xml', 'yaml', 'yml',
+  'toml', 'ini', 'conf', 'cfg', 'config', 'properties', 'env', 'example', 'sample', 'html', 'htm', 'css', 'scss', 'sass',
+  'less', 'js', 'mjs', 'cjs', 'ts', 'tsx', 'jsx', 'vue', 'svelte', 'sh', 'bash', 'zsh', 'fish', 'py', 'rb', 'pl', 'lua',
+  'php', 'go', 'c', 'h', 'cpp', 'hpp', 'cc', 'cs', 'java', 'kt', 'swift', 'rs', 'sql', 'ps1', 'bat', 'cmd', 'service',
+  'socket', 'timer', 'mount', 'target', 'path', 'rules', 'list', 'sources', 'repo', 'desktop', 'rc', 'lock', 'gitignore',
+  'dockerignore', 'editorconfig', 'gitattributes', 'bak', 'orig', 'old', 'out', 'err', 'diff', 'patch', 'tf', 'hcl',
+  'gradle', 'mk', 'make', 'cmake', 'svg',
 ])
+
+/** True when a regular file small enough for the editor, whatever its
+ *  extension; the server still refuses binary content. */
+export function canOpenAsText(e: FileEntry, textMax: number): boolean {
+  return isFileLike(e) && e.size > 0 && e.size <= textMax
+}
 
 export type PreviewKind = 'image' | 'video' | 'audio' | 'text'
 

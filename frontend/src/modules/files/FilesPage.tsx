@@ -7,6 +7,7 @@ import {
   Copy,
   CornerLeftUp,
   Download,
+  FileText,
   FileArchive,
   FolderInput,
   FolderOpen,
@@ -49,7 +50,7 @@ import { JobsPanel, jobKindLabel, useJobs } from './jobs'
 import { t } from './strings'
 import type { FileEntry, Job, ListResponse, RootInfo, RootsResponse, SortKey, SortOrder } from './types'
 import { UploadsPanel, useUploads } from './uploads'
-import { crumbs, entryIcon, iconClass, isArchive, isDirLike, previewKind, startDownload, type PreviewKind } from './util'
+import { canOpenAsText, crumbs, entryIcon, iconClass, isArchive, isDirLike, previewKind, startDownload, type PreviewKind } from './util'
 import { usePersistentState } from '@/hooks/usePersistentState'
 
 const PAGE_STEP = 1000
@@ -539,6 +540,9 @@ export default function FilesPage() {
       const add = (label: string, icon: LucideIcon, onSelect: () => void, extra: Partial<MenuItem> = {}) =>
         items.push({ label, icon, onSelect, ...extra })
       if (single) add(t('open'), FolderOpen, () => open(single))
+      if (single && previewKind(single, textMax) !== 'text' && canOpenAsText(single, textMax)) {
+        add(t('openAsText'), FileText, () => setDialog({ kind: 'text', entry: single }))
+      }
       add(t('download'), Download, () => startDownload(targets.map((e) => e.path)))
       if (isAdmin) {
         add(t('move'), FolderInput, () => setDialog({ kind: 'move', entries: targets }), { separated: true })
@@ -551,7 +555,7 @@ export default function FilesPage() {
       if (single) add(t('properties'), Info, () => setDialog({ kind: 'properties', entry: single }), { separated: true })
       return items
     },
-    [isAdmin, open],
+    [isAdmin, open, textMax],
   )
 
   const openMenu = (e: FileEntry, position: { x: number; y: number } | null) => {

@@ -43,6 +43,7 @@ export const t = messages({
     itemActions: '{name} için işlemler',
     actions: 'İşlemler',
     open: 'Aç',
+    openAsText: 'Metin olarak aç',
     download: 'İndir',
     downloadZip: 'ZIP olarak indir',
     move: 'Taşı',
