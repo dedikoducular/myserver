@@ -1,0 +1,29 @@
+schema: 1
+name: Cloudflare Tunnel
+slug: cloudflared
+description: Cloudflare Tüneli
+long_description: |
+  Sunucunuzdaki hizmetleri port açmadan, Cloudflare üzerinden güvenli biçimde
+  internete açan tünel istemcisi (cloudflared).
+category: network
+icon: cloudflared.svg
+version: latest
+website: https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/
+architectures: [amd64, arm64, arm]
+notes: |
+  Cloudflare Zero Trust panelinde Networks > Tunnels bölümünden bir tünel
+  oluşturun ve verilen tünel anahtarını (token) aşağıdaki alana yapıştırın.
+  Tünelin "Public Hostname" ayarında hizmet adresi olarak sunucuya göre
+  http://localhost:PORT yazın; uygulama sunucunun ağını kullandığı için
+  bu adreslere doğrudan erişir.
+docker:
+  image: cloudflare/cloudflared:latest
+  restart: unless-stopped
+  network_mode: host
+  command: ["tunnel", "--no-autoupdate", "run"]
+env:
+  - name: TUNNEL_TOKEN
+    label: Tünel anahtarı
+    description: Cloudflare Zero Trust panelinden aldığınız tünel anahtarı (token).
+    required: true
+    secret: true
